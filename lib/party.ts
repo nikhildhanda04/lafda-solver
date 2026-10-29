@@ -15,7 +15,7 @@ export async function resolveParty(token: string) {
 
 export type ResolvedParty = NonNullable<Awaited<ReturnType<typeof resolveParty>>>;
 
-/** Own statements keyed by kind — the shape the form reads on load. */
+/** Own statements keyed by kind: the shape the form reads on load. */
 export function ownStatements(party: ResolvedParty) {
   return Object.fromEntries(
     party.statements.map((s) => [s.kind, { body: s.body, links: s.links }]),

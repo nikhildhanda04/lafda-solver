@@ -12,13 +12,13 @@ const statements = {
     { kind: "OPENING" as const, body: "I planned the weekend trip for weeks and she cancelled the night before." },
     { kind: "CONTEXT" as const, body: "I booked the cabin on the 3rd and told her that evening. On the 14th she said her sister needed her. I had already paid the non-refundable deposit." },
     { kind: "PROPOSAL" as const, body: "She covers half the deposit and we rebook within a month, with the date agreed in writing." },
-    { kind: "EVIDENCE" as const, body: "Booking confirmation and the message where I told her the date.", links: ["https://example.com/booking-confirmation", "https://example.com/chat-14th"] },
+    { kind: "EVIDENCE" as const, body: "Booking confirmation and the message where I told her the date.", links: ["https://app.coorg-cabins.in/bookings/BK-48213", "https://photos.app.goo.gl/kR7tQm2vXnB4d9Zs6"] },
   ],
   B: [
     { kind: "OPENING" as const, body: "My sister had a medical emergency and he is treating it like I broke a contract." },
     { kind: "CONTEXT" as const, body: "He mentioned a cabin in passing but never confirmed a date with me. On the 14th my sister was admitted to hospital and I left that night." },
     { kind: "PROPOSAL" as const, body: "We split the deposit loss evenly and agree that trips get confirmed together before anything is paid." },
-    { kind: "EVIDENCE" as const, body: "Hospital discharge summary dated the 15th.", links: ["https://example.com/discharge-summary"] },
+    { kind: "EVIDENCE" as const, body: "Hospital discharge summary dated the 15th.", links: ["https://portal.fortishealthcare.com/discharge/9F2184-20261015"] },
   ],
 };
 
