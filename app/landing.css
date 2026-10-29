@@ -1,0 +1,251 @@
+/* The landing page. Page rules apply here, not the app-screen rules:
+   no outlined boxes, no rules, no shadows at rest. Interface fragments
+   marked data-ui are the exception and keep the product's own conventions. */
+
+/* Five page steps. Type inside data-ui fragments keeps the product's true
+   interface size (13-14px), which is what the direction asks for. */
+:root {
+  --p-display: clamp(52px, 5.2vw, 80px);
+  --p-head: 28px;
+  --p-lead: 18px;
+  --p-body: 16px;
+  --p-small: 13px;
+  --p-margin: 40px;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-q: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-reveal: 800ms;
+  --t-open: 1200ms;
+  --stagger-item: 70ms;
+}
+
+.site-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px var(--p-margin); }
+.site-nav .wordmark { font-weight: 600; font-size: var(--p-body); letter-spacing: -0.01em; }
+.site-nav .links { display: flex; gap: 28px; }
+.site-nav .links a { font-size: var(--p-body); color: var(--muted); transition: color var(--t-hover) ease; }
+.site-nav .links a:hover { color: var(--text); }
+
+/* ---------- 1. hero: fragment on a shaped stage ---------- */
+.hero { position: relative; min-height: 86svh; padding: 0 0 80px; }
+.hero-words { max-width: 46%; padding: 30px var(--p-margin) 0; }
+.hero-words h1 { font-size: var(--p-display); line-height: 0.98; letter-spacing: -0.035em; font-weight: 500; }
+.hero-words p { margin-top: 28px; max-width: 40ch; font-size: var(--p-lead); line-height: 28px; color: var(--muted); }
+.hero-words .btn { margin-top: 28px; height: 44px; padding: 0 20px; }
+
+.hero-stage {
+  position: absolute; right: 0; bottom: 0; left: 38%; top: 42%;
+  background: var(--accent);
+  /* the product's own shape: the notch is the sealed corner */
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%, 0 12%);
+  padding: 56px 0 0 56px;
+  overflow: hidden;
+}
+
+.spine-demo { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 12px; max-width: 760px; align-items: start; }
+.spine-demo .panel { padding: 16px; }
+.spine-demo h3 { font-size: var(--fs-body); font-weight: 600; }
+.spine-demo > .panel > header { margin-bottom: 12px; }
+.demo-label { display: block; font-weight: 500; margin-bottom: 8px; }
+.demo-write textarea.input { width: 100%; height: 150px; min-height: 0; resize: none; }
+.demo-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--faint); font-size: var(--fs-small); }
+
+.demo-sealed { display: block; text-align: left; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font: inherit; color: inherit; } /* taste-skill-ignore: a data-ui fragment reproducing the product's own 1px panel edge */
+.demo-sealed-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.demo-sealed-head .h { font-size: var(--fs-body); font-weight: 600; }
+.demo-sealed-body { display: block; color: var(--muted); font-size: 13px; line-height: 19px; }
+.demo-sealed.peeked { background: var(--raised); }
+.demo-sealed.peeked .demo-sealed-body { color: var(--text); }
+
+/* ---------- 2. how it works: one case, four fields ---------- */
+.strip { display: grid; grid-template-columns: repeat(4, 1fr); }
+.field-col { position: relative; min-height: 84svh; padding: 28px var(--p-margin); display: flex; flex-direction: column; }
+.field-col.f1 { background: #ffffff; }
+.field-col.f2 { background: #efefec; }
+.field-col.f3 { background: #e4e4e0; }
+.field-col.f4 { background: var(--text); color: #f4f4f2; }
+.field-col h2 { font-size: var(--p-head); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 24px; }
+.field-col .clause { margin-top: auto; font-size: var(--p-head); line-height: 1.2; letter-spacing: -0.015em; max-width: 14ch; }
+.field-col .case-card { margin: 10% auto 0; transition: transform var(--t-ui) var(--ease-out); }
+.field-col:hover .case-card { transform: translateY(-6px); }
+
+.case-card { width: 260px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 14px; color: var(--text); } /* taste-skill-ignore: a data-ui fragment reproducing the product's own 1px panel edge */
+.cc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+.cc-head .t { font-size: 13px; font-weight: 600; }
+.cc-row { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; font-size: 13px; }
+.cc-row + .cc-row { border-top: 1px solid var(--rule); } /* taste-skill-ignore: inside a data-ui fragment, where the product's own conventions apply */
+.cc-row .st { color: var(--faint); }
+.cc-foot { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: var(--fs-small); color: var(--muted); } /* taste-skill-ignore: inside a data-ui fragment, where the product's own conventions apply */
+
+/* ---------- 3. features: small proof beside text ---------- */
+.proofs { padding: 120px var(--p-margin); max-width: 1152px; margin: 0 auto; }
+.proofs > h2 { font-size: var(--p-head); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 64px; }
+.proof { display: flex; gap: 20px; align-items: flex-start; max-width: 760px; }
+.proof + .proof { margin-top: 104px; }
+.proof-panel { width: 360px; flex: none; }
+.proof-text { width: 320px; }
+.proof-text h3 { font-size: var(--p-lead); font-weight: 500; margin-bottom: 10px; }
+.proof-text p { font-size: var(--p-body); line-height: 25px; color: var(--text); }
+.proof-text p + p { margin-top: 10px; }
+
+.frag { background: var(--raised); border-radius: var(--radius-card); padding: 16px; font-size: 13px; }
+.frag .row { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; }
+.frag .row + .row { border-top: 1px solid var(--border); } /* taste-skill-ignore: inside a data-ui fragment, where the product's own conventions apply */
+.frag .n { width: 1.2em; color: var(--faint); }
+.frag .nm { flex: 1; font-weight: 500; }
+.frag .st { color: var(--faint); }
+.frag .ok { color: #1f5c23; font-weight: 500; }
+.frag-labels .tag { /* taste-skill-ignore: literal code - the XML delimiters actually sent to the model */ font-family: var(--font-geist-mono), ui-monospace, monospace; font-size: 12px; color: var(--accent); margin-top: 10px; }
+.frag-labels .tag:first-child { margin-top: 0; }
+.frag-labels .mono { color: var(--muted); padding: 4px 0 0 12px; }
+.frag-safety { display: grid; gap: 8px; }
+.frag-safety strong { font-size: 15px; }
+.frag-safety span { color: var(--muted); line-height: 19px; }
+
+/* ---------- 4. showcase: input half, output half ---------- */
+.split { display: grid; grid-template-columns: 1fr 1fr; }
+.split .half { position: relative; min-height: 90svh; padding: 48px var(--p-margin); display: flex; flex-direction: column; }
+.split .raw { background: var(--text); color: #cfcfca; }
+.split .made { background: #ffffff; }
+.raw-text { margin-top: 24%; max-width: 34ch; font-size: var(--p-lead); line-height: 1.45; }
+.raw-text p + p { margin-top: 20px; }
+.raw-text em { color: #8f8f89; font-style: normal; }
+.split-head { margin-top: auto; font-size: var(--p-display); line-height: 1; letter-spacing: -0.035em; font-weight: 500; }
+.split .raw .split-head { color: #ffffff; }
+.frag-verdict { margin-top: 20%; background: var(--surface); border: 1px solid var(--border); width: 100%; max-width: 480px; } /* taste-skill-ignore: a data-ui fragment reproducing the product's own 1px panel edge */
+.frag-verdict header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+.frag-verdict h3 { font-size: 14px; font-weight: 600; }
+.frag-verdict ol { display: grid; }
+.frag-verdict li { display: flex; gap: 12px; padding: 11px 0; }
+.frag-verdict li + li { border-top: 1px solid var(--rule); } /* taste-skill-ignore: inside a data-ui fragment, where the product's own conventions apply */
+.frag-verdict .n { color: var(--accent); font-weight: 600; }
+.frag-verdict em { display: block; margin-top: 3px; font-style: normal; color: var(--faint); font-size: var(--fs-small); }
+.frag-verdict .fault { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule); color: var(--muted); } /* taste-skill-ignore: inside a data-ui fragment, where the product's own conventions apply */
+
+/* ---------- 5. faq ---------- */
+.faq { display: grid; grid-template-columns: 4fr 8fr; gap: 40px; padding: 120px var(--p-margin); max-width: 1152px; margin: 0 auto; align-items: start; }
+.faq > h2 { position: sticky; top: 96px; font-size: var(--p-display); line-height: 1; letter-spacing: -0.03em; font-weight: 500; }
+.tiles { display: grid; gap: 8px; }
+.tiles details { background: var(--surface); border-radius: var(--radius-card); }
+.tiles summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; padding: 16px 24px; font-size: var(--p-lead); font-weight: 500; cursor: pointer; list-style: none; }
+.tiles summary::-webkit-details-marker { display: none; }
+.tiles .plus { position: relative; width: 16px; height: 16px; flex: none; }
+.tiles .plus::before, .tiles .plus::after { content: ""; position: absolute; background: currentColor; }
+.tiles .plus::before { left: 0; top: 6.5px; width: 16px; height: 3px; }
+.tiles .plus::after { top: 0; left: 6.5px; width: 3px; height: 16px; transition: transform var(--t-ui) var(--ease-out); }
+.tiles details[open] { background: var(--accent); color: #ffffff; }
+.tiles details[open] .plus::after { transform: scaleY(0); }
+.tiles details p { padding: 0 24px 22px; max-width: 52ch; font-size: var(--p-body); line-height: 26px; }
+
+/* ---------- 6. cta: first step, already open ---------- */
+.closing { display: grid; grid-template-columns: 5fr 7fr; gap: 40px; align-items: end; min-height: 90svh; padding: var(--p-margin); background: var(--accent); color: #ffffff; }
+.closing-words h2 { font-size: var(--p-display); line-height: 0.92; letter-spacing: -0.04em; font-weight: 500; }
+.closing-words p { margin-top: 20px; max-width: 34ch; font-size: var(--p-lead); line-height: 26px; color: rgba(255, 255, 255, 0.78); }
+.closing-form { display: flex; justify-content: center; align-items: center; align-self: center; }
+
+.create { width: 100%; max-width: 440px; background: var(--surface); color: var(--text); border-radius: var(--radius-card); padding: 24px; display: grid; gap: 20px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18); } /* taste-skill-ignore: the cta blueprint asks for the dialog's own shadow; it floats above the field */
+.create h3 { font-size: var(--p-lead); font-weight: 600; }
+.create .field { gap: 6px; }
+.create legend { font-weight: 500; padding: 0; }
+.create fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+.create .choices { display: grid; grid-auto-flow: column; gap: 6px; padding: 3px; background: var(--raised); border-radius: var(--radius-control); }
+.create .choice { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 10px; border: 0; border-radius: 4px; font-size: 13px; text-align: center; cursor: pointer; background: transparent; }
+.create .choice:has(input:checked) { background: var(--surface); font-weight: 500; }
+.create .choice input { position: absolute; opacity: 0; pointer-events: none; }
+.create .choice .top { display: block; font-weight: inherit; }
+.create .btn.primary { width: 100%; height: 44px; }
+.create .err { color: #c4242a; font-size: var(--p-small); }
+.link-out { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 10px 12px; background: var(--ground); border-radius: var(--radius-control); }
+.link-out .lbl { font-size: var(--p-small); font-weight: 600; }
+.link-out code { /* taste-skill-ignore: a share link is this product's only credential; l/1 and O/0 must be told apart */ font-family: var(--font-geist-mono), ui-monospace, monospace; font-size: var(--p-small); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- 7. footer of tiles ---------- */
+.site-foot { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; padding: 8px; }
+.site-foot .tile { padding: 20px; background: var(--surface); border-radius: var(--radius-card); display: flex; flex-direction: column; gap: 10px; }
+.site-foot .statement { grid-column: span 4; min-height: 220px; }
+.site-foot .statement p { font-size: var(--p-head); line-height: 1.25; letter-spacing: -0.015em; }
+.site-foot .statement small { margin-top: auto; font-size: var(--p-small); color: var(--faint); }
+.site-foot .nav { grid-column: span 3; }
+.site-foot .nav a { font-size: var(--p-body); color: var(--muted); }
+.site-foot .nav a:hover { color: var(--text); }
+.site-foot .safety { grid-column: span 5; color: var(--text); font-size: var(--p-body); line-height: 24px; }
+.site-foot .safety strong { color: var(--text); font-weight: 600; }
+.site-foot .mark { grid-column: span 8; min-height: 240px; background: var(--text); color: #f4f4f2; align-items: center; justify-content: center; }
+.site-foot .mark span { font-size: var(--p-display); font-weight: 500; letter-spacing: -0.04em; }
+.site-foot .go { grid-column: span 4; min-height: 240px; background: var(--accent); color: #ffffff; justify-content: space-between; }
+.site-foot .go span { font-size: var(--p-head); font-weight: 500; letter-spacing: -0.02em; }
+.site-foot .go svg { width: 48px; height: 48px; margin-left: auto; }
+
+/* ---------- phone ---------- */
+@media (max-width: 860px) {
+  .site-nav { padding: 16px; }
+  .site-nav .links { display: none; }
+  .hero { min-height: 0; padding-bottom: 0; }
+  .hero-words { max-width: none; padding: 10px 16px 0; }
+  .hero-words h1 { font-size: 10vw; }
+  .hero-stage { position: static; margin-top: 32px; padding: 20px 0 20px 16px; clip-path: polygon(72px 0, 100% 0, 100% 100%, 0 100%, 0 72px); }
+  .spine-demo { grid-template-columns: minmax(0, 1fr); max-width: none; padding-right: 16px; }
+  .strip, .split, .faq, .closing { grid-template-columns: minmax(0, 1fr); }
+  .field-col { min-height: 64svh; padding: 20px; }
+  /* a statement paragraph stays at statement size on a phone */
+  .field-col .clause { font-size: 22px; }
+  .site-foot .statement p { font-size: 22px; }
+  .split .half { min-height: 62svh; padding: 28px 20px; }
+  .raw-text, .frag-verdict { margin-top: 32px; }
+  .proofs, .faq { padding: 64px 16px; }
+  .proof { flex-direction: column; gap: 16px; }
+  .proof-panel, .proof-text { width: 100%; }
+  .proof + .proof { margin-top: 64px; }
+  .faq > h2 { position: static; font-size: 9vw; }
+  .closing { padding: 40px 16px; align-items: start; }
+  .site-foot { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .site-foot .mark { grid-column: span 2; min-height: 160px; order: -2; }
+  .site-foot .go { grid-column: span 2; min-height: 160px; order: -1; }
+  .site-foot .statement, .site-foot .safety { grid-column: span 2; }
+  .site-foot .nav { grid-column: span 2; }
+}
+
+/* ---------- motion ----------
+   Nothing here hides content unless the script has run (.js), so the page is
+   complete and readable with JavaScript off or broken. */
+@media (prefers-reduced-motion: no-preference) {
+  /* the signature move: the stage opens from its cut corner */
+  .js .hero-stage { clip-path: polygon(14% 0, 14% 0, 14% 100%, 0 100%, 0 12%); transition: clip-path var(--t-open) var(--ease-in-out-q); }
+  .js .hero-stage.is-in { clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%, 0 12%); }
+  .js .hero-stage .spine-demo { opacity: 0; transform: translate3d(0, 18px, 0); transition: opacity var(--t-reveal) var(--ease-expo) 260ms, transform var(--t-reveal) var(--ease-expo) 260ms; }
+  .js .hero-stage.is-in .spine-demo { opacity: 1; transform: none; }
+
+  /* section entrances, in reading order */
+  .js [data-rise] { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity var(--t-reveal) var(--ease-expo), transform var(--t-reveal) var(--ease-expo); }
+  .js [data-rise].is-in { opacity: 1; transform: none; }
+
+  /* a list arrives row by row rather than as one block */
+  .js .frag .row, .js .cc-row { opacity: 0; transform: translate3d(0, 10px, 0); transition: opacity 520ms var(--ease-expo), transform 520ms var(--ease-expo); }
+  .js [data-reveal].is-in .frag .row, .js [data-reveal].is-in .cc-row { opacity: 1; transform: none; }
+  .js [data-reveal].is-in .frag .row:nth-child(2), .js [data-reveal].is-in .cc-row:nth-child(3) { transition-delay: 70ms; }
+  .js [data-reveal].is-in .frag .row:nth-child(3), .js [data-reveal].is-in .cc-row:nth-child(4) { transition-delay: 140ms; }
+  .js [data-reveal].is-in .frag .row:nth-child(4), .js [data-reveal].is-in .cc-row:nth-child(5) { transition-delay: 210ms; }
+  .js [data-reveal].is-in .frag .row:nth-child(5) { transition-delay: 280ms; }
+
+  /* the verdict steps count in one at a time */
+  .js .frag-verdict li { opacity: 0; transform: translate3d(0, 12px, 0); transition: opacity 560ms var(--ease-expo), transform 560ms var(--ease-expo); }
+  .js [data-reveal].is-in .frag-verdict li { opacity: 1; transform: none; }
+  .js [data-reveal].is-in .frag-verdict li:nth-child(2) { transition-delay: 90ms; }
+  .js [data-reveal].is-in .frag-verdict li:nth-child(3) { transition-delay: 180ms; }
+
+  .spine-demo { will-change: transform; }
+}
+
+/* feedback under the hand */
+.site-nav .links a { position: relative; }
+.site-nav .links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform var(--t-ui) var(--ease-out); }
+.site-nav .links a:hover::after { transform: scaleX(1); }
+.demo-sealed { transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
+.demo-sealed:hover { background: var(--raised); }
+.demo-sealed:active { transform: scale(0.99); }
+.tiles summary { transition: background-color var(--t-hover) ease; }
+.tiles details:not([open]) summary:hover { background: var(--raised); border-radius: var(--radius-card); }
+.site-foot .go { transition: transform var(--t-ui) var(--ease-out); }
+.site-foot .go:hover { transform: translateY(-4px); }
+.site-foot .go svg { transition: transform var(--t-ui) var(--ease-out); }
+.site-foot .go:hover svg { transform: translate(4px, -4px); }
+.create .choice { transition: background-color var(--t-hover) ease; }
