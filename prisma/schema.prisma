@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Mode {
+  COMMON_GROUND
+  COMMON_GROUND_AND_VERDICT
+}
+
+enum Status {
+  COLLECTING
+  JUDGING
+  DECIDED
+  FAILED
+}
+
+enum Slot {
+  A
+  B
+}
+
+enum Kind {
+  OPENING
+  CONTEXT
+  PROPOSAL
+  EVIDENCE
+}
+
+model Case {
+  id        String   @id @default(cuid())
+  title     String
+  mode      Mode     @default(COMMON_GROUND)
+  status    Status   @default(COLLECTING)
+  createdAt DateTime @default(now())
+  parties   Party[]
+  verdict   Verdict?
+}
+
+model Party {
+  id          String      @id @default(cuid())
+  caseId      String
+  case        Case        @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  slot        Slot
+  displayName String?
+  tokenHash   String      @unique
+  lockedAt    DateTime?
+  statements  Statement[]
+
+  @@unique([caseId, slot])
+}
+
+model Statement {
+  id      String   @id @default(cuid())
+  partyId String
+  party   Party    @relation(fields: [partyId], references: [id], onDelete: Cascade)
+  kind    Kind
+  body    String
+  links   String[]
+
+  @@unique([partyId, kind])
+}
+
+model Verdict {
+  id           String   @id @default(cuid())
+  caseId       String   @unique
+  case         Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  json         Json
+  model        String
+  inputTokens  Int?
+  outputTokens Int?
+  createdAt    DateTime @default(now())
+}
