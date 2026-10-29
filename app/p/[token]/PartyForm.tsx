@@ -254,7 +254,7 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
           <p className="sub">
             {locked
               ? `You have locked your side. ${MODE_MEANS[view.case.mode]}`
-              : `Your side only. ${them(view).toLowerCase() === "the other person" ? "the other person" : them(view)} cannot see any of this until you have both locked. ${MODE_MEANS[view.case.mode]}`}
+              : `Your side only. ${them(view)} cannot see any of this until you have both locked. ${MODE_MEANS[view.case.mode]}`}
           </p>
         </div>
         <span className="stamp num">
