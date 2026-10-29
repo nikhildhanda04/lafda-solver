@@ -39,6 +39,18 @@ Swap the resource ARN when you change `BEDROCK_MODEL_ID`. If you move to a cross
 
 Enable the model first: Bedrock console → Model access. A model that is not enabled fails at call time, not at deploy time, and surfaces to both people as the FAILED screen with a retry button.
 
+## Checking the judge works
+
+```sh
+npm run judge:check
+```
+
+Makes one real Converse call with your configured credentials and model, prints the
+verdict and the token usage, and names the specific failure if it cannot: missing
+credentials, a missing `bedrock:InvokeModel` permission, a model that is not enabled
+in the region, or a model that cannot hold the output shape. Use it instead of the
+AWS CLI, which this project never shells out to.
+
 ## Database
 
 ```sh

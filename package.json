@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "test": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.test --test --test-concurrency=1 test/*.test.ts",
-    "seed": "tsx --env-file-if-exists=.env prisma/seed.ts"
+    "seed": "tsx --env-file-if-exists=.env prisma/seed.ts",
+    "judge:check": "tsx --env-file-if-exists=.env scripts/check-bedrock.ts"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.1160.0",
