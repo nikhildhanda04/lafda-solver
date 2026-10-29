@@ -42,3 +42,5 @@ next-env.d.ts
 
 /lib/generated
 /.superpowers
+
+.env.test

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MAX_BODY, MAX_LINKS, MODE_LABEL, MODE_MEANS, STEPS, STEP_COUNT } from "@/lib/steps";
+import { MAX_BODY, MAX_LINKS, MODE_LABEL, MODE_MEANS, STEPS, STEP_COUNT, saveableLinks, shouldPoll } from "@/lib/steps";
 import type { Kind } from "@/lib/party";
 import Verdict, { type VerdictData } from "./Verdict";
 
@@ -48,7 +48,7 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
       const res = await fetch(`/api/p/${token}/statements/${kind}`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(value),
+        body: JSON.stringify({ ...value, links: saveableLinks(value.links) }),
       });
       if (!res.ok) {
         setError("That did not save. Check your connection and try the step again.");
@@ -80,7 +80,7 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
 
   // While waiting for the other side, poll every 5s (the plan's interval; no websockets in the MVP).
   useEffect(() => {
-    if (!locked && view.case.status === "COLLECTING") return;
+    if (!shouldPoll(view.case.status, locked)) return;
     const tick = async () => {
       const res = await fetch(`/api/p/${token}`);
       if (res.ok) setView(await res.json());

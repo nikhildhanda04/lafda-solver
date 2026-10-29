@@ -55,3 +55,32 @@ export const MODE_MEANS = {
   COMMON_GROUND_AND_VERDICT:
     "The mediator will find common ground and propose a resolution, and it may also say who was right, but only where the evidence clearly supports it.",
 } as const;
+
+/**
+ * The page polls for the other side and then for the verdict. Once the case has
+ * an outcome there is nothing left to wait for, so polling must stop — otherwise
+ * a decided case keeps hitting the API every five seconds for as long as the tab
+ * is open.
+ */
+export const shouldPoll = (status: string, locked: boolean) =>
+  status === "JUDGING" || (status === "COLLECTING" && locked);
+
+/**
+ * Links the server will accept. The evidence box autosaves while you type, and
+ * a half-typed address ("htt") is not a URL yet, so sending it would turn every
+ * keystroke into a failed save. Blanks left by clearing a middle row go too.
+ */
+export function saveableLinks(links: string[]): string[] {
+  return links
+    .map((l) => l.trim())
+    .filter((l) => {
+      if (!l) return false;
+      try {
+        const u = new URL(l);
+        return u.protocol === "http:" || u.protocol === "https:";
+      } catch {
+        return false;
+      }
+    })
+    .slice(0, MAX_LINKS);
+}
