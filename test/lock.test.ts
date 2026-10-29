@@ -4,6 +4,7 @@ import { POST as createCase } from "../app/api/cases/route";
 import { PUT as putStatement } from "../app/api/p/[token]/statements/[kind]/route";
 import { POST as lockParty } from "../app/api/p/[token]/lock/route";
 import { prisma } from "../lib/db";
+import { _reset as resetRateLimit } from "../lib/ratelimit";
 import { setProvider, resetProvider } from "../lib/judge/provider";
 import type { JudgeResult } from "../lib/judge/schema";
 import { mockJudge } from "../lib/judge/mock";
@@ -38,6 +39,7 @@ const lock = (token: string) =>
 let calls = 0;
 beforeEach(async () => {
   await prisma.case.deleteMany();
+  resetRateLimit(); // the limiter is process-global; these suites open more than its hourly cap
   calls = 0;
 });
 afterEach(() => resetProvider());

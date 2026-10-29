@@ -6,6 +6,7 @@ import { POST as lockParty } from "../app/api/p/[token]/lock/route";
 import { GET as getParty } from "../app/api/p/[token]/route";
 import { POST as retryCase } from "../app/api/cases/[id]/retry/route";
 import { prisma } from "../lib/db";
+import { _reset as resetRateLimit } from "../lib/ratelimit";
 import { setProvider, resetProvider } from "../lib/judge/provider";
 import { mockJudge } from "../lib/judge/mock";
 import type { JudgeResult } from "../lib/judge/schema";
@@ -55,6 +56,7 @@ const withFault = (over: Partial<JudgeResult>) =>
 
 beforeEach(async () => {
   await prisma.case.deleteMany();
+  resetRateLimit(); // the limiter is process-global; these suites open more than its hourly cap
 });
 afterEach(() => resetProvider());
 

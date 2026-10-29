@@ -2,6 +2,7 @@ import { test, beforeEach } from "node:test";
 import assert from "node:assert/strict";
 import { POST } from "../app/api/cases/route";
 import { prisma } from "../lib/db";
+import { _reset as resetRateLimit } from "../lib/ratelimit";
 import { hashToken, newToken } from "../lib/tokens";
 
 const post = (body: unknown) =>
@@ -13,6 +14,7 @@ const post = (body: unknown) =>
 
 beforeEach(async () => {
   await prisma.case.deleteMany();
+  resetRateLimit(); // the limiter is process-global; these suites open more than its hourly cap
 });
 
 test("newToken produces distinct, unguessable tokens and hashToken is sha256 hex", () => {

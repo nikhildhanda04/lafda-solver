@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { readJson } from "@/lib/http";
+import { allow, callerKey } from "@/lib/ratelimit";
 import { hashToken, newToken } from "@/lib/tokens";
 
 const CreateCase = z.object({
@@ -10,6 +11,15 @@ const CreateCase = z.object({
 });
 
 export async function POST(req: Request) {
+  // Checked before the body is read, so a flood of malformed requests cannot
+  // get a cheaper answer than a well-formed one.
+  if (!allow(callerKey(req))) {
+    return NextResponse.json(
+      { error: "Too many cases opened from here. Try again in an hour." },
+      { status: 429 },
+    );
+  }
+
   const parsed = await readJson(req, CreateCase);
   if ("response" in parsed) return parsed.response;
 

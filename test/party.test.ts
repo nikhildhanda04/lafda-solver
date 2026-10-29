@@ -4,6 +4,7 @@ import { POST as createCase } from "../app/api/cases/route";
 import { GET as getParty } from "../app/api/p/[token]/route";
 import { PUT as putStatement } from "../app/api/p/[token]/statements/[kind]/route";
 import { prisma } from "../lib/db";
+import { _reset as resetRateLimit } from "../lib/ratelimit";
 import { hashToken } from "../lib/tokens";
 
 type Links = { a: string; b: string };
@@ -33,6 +34,7 @@ const put = (token: string, kind: string, body: unknown) =>
 
 beforeEach(async () => {
   await prisma.case.deleteMany();
+  resetRateLimit(); // the limiter is process-global; these suites open more than its hourly cap
 });
 
 test("GET returns the case, the mode, own statements and lock status", async () => {
