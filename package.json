@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "tsx --env-file-if-exists=.env --test test/*.test.ts",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx --env-file-if-exists=.env prisma/seed.ts"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.1160.0",
@@ -25,6 +25,7 @@
     "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^18.0.9",
     "prisma": "^7.10.1",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
