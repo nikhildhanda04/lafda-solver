@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { ownStatements, resolveParty } from "@/lib/party";
+import { verdictView } from "@/lib/verdict";
 
 type Ctx = { params: Promise<{ token: string }> };
 
@@ -9,11 +10,18 @@ export async function GET(_req: Request, { params }: Ctx) {
   const party = await resolveParty(token);
   if (!party) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
+  const decided = party.case.status === "DECIDED";
+
   const other = await prisma.party.findFirst({
     where: { caseId: party.caseId, NOT: { id: party.id } },
-    // Only the fields the waiting state needs. Never the other side's statements.
-    select: { displayName: true, lockedAt: true },
+    // Their statements are loaded only once the case is decided; before that the
+    // select below cannot return them at all.
+    include: { statements: decided },
   });
+
+  const verdict = decided
+    ? await prisma.verdict.findUnique({ where: { caseId: party.caseId } })
+    : null;
 
   return NextResponse.json({
     case: {
@@ -31,6 +39,13 @@ export async function GET(_req: Request, { params }: Ctx) {
     other: {
       displayName: other?.displayName ?? null,
       locked: other?.lockedAt != null,
+      statements: decided && other ? ownStatements(other as never) : null,
     },
+    verdict: verdict
+      ? verdictView(verdict.json, party.case.mode, {
+          A: (party.slot === "A" ? party.displayName : other?.displayName) ?? "Person A",
+          B: (party.slot === "B" ? party.displayName : other?.displayName) ?? "Person B",
+        })
+      : null,
   });
 }

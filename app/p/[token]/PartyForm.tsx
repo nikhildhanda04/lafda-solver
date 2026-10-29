@@ -3,12 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MAX_BODY, MAX_LINKS, MODE_LABEL, MODE_MEANS, STEPS, STEP_COUNT } from "@/lib/steps";
 import type { Kind } from "@/lib/party";
+import Verdict, { type VerdictData } from "./Verdict";
 
 type Statement = { body: string; links: string[] };
 export type PartyView = {
   case: { id: string; title: string; mode: keyof typeof MODE_LABEL; status: string };
   you: { slot: string; displayName: string | null; locked: boolean; statements: Partial<Record<Kind, Statement>> };
-  other: { displayName: string | null; locked: boolean };
+  other: { displayName: string | null; locked: boolean; statements?: Partial<Record<Kind, Statement>> | null };
+  verdict?: VerdictData | null;
 };
 
 const blank = (): Statement => ({ body: "", links: [] });
@@ -78,7 +80,7 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
 
   // While waiting for the other side, poll every 5s (the plan's interval; no websockets in the MVP).
   useEffect(() => {
-    if (!locked) return;
+    if (!locked && view.case.status === "COLLECTING") return;
     const tick = async () => {
       const res = await fetch(`/api/p/${token}`);
       if (res.ok) setView(await res.json());
@@ -86,7 +88,25 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
     const id = setInterval(tick, 5000);
     tick();
     return () => clearInterval(id);
-  }, [locked, token]);
+  }, [locked, token, view.case.status]);
+
+  async function retry() {
+    setLocking(true);
+    try {
+      const res = await fetch(`/api/cases/${view.case.id}/retry`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error ?? "Could not run it again.");
+      const res2 = await fetch(`/api/p/${token}`);
+      if (res2.ok) setView(await res2.json());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not run it again.");
+    } finally {
+      setLocking(false);
+    }
+  }
 
   async function lock() {
     setLocking(true);
@@ -103,6 +123,128 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
   }
 
   const written = STEPS.filter((s) => draft[s.kind].body.trim().length > 0).length;
+
+  if (view.case.status === "DECIDED" && view.verdict) {
+    return (
+      <main className="canvas">
+        <div className="title-row">
+          <div>
+            <h1>{view.case.title}</h1>
+            <p className="sub">
+              {view.verdict.safety_flag === "none"
+                ? view.verdict.summary_neutral
+                : "Both sides are in, and this is not an argument a mediator should settle."}
+            </p>
+          </div>
+          <span className="stamp">{MODE_LABEL[view.case.mode]}</span>
+        </div>
+        <div className="verdict">
+          <Verdict
+            verdict={view.verdict}
+            yourSlot={view.you.slot}
+            yours={draft}
+            theirs={view.other.statements ?? null}
+          />
+        </div>
+      </main>
+    );
+  }
+
+  if (view.case.status === "FAILED") {
+    return (
+      <main className="canvas">
+        <div className="title-row">
+          <div>
+            <h1>{view.case.title}</h1>
+            <p className="sub">
+              Both of you locked, but the mediator did not come back. Nothing either of you wrote
+              has been lost, and nothing has been shown to the other side.
+            </p>
+          </div>
+          <span className="stamp">Both sides locked</span>
+        </div>
+        <div className="spine">
+          <section className="panel">
+            <header>
+              <h2>The two sides</h2>
+              <span className="meta">Both locked</span>
+            </header>
+            <div className="sides">
+              <section>
+                <header>
+                  <h3>Your side</h3>
+                  <span className="pill">Locked</span>
+                </header>
+                <div className="steps">
+                  {STEPS.map((s, i) => (
+                    <div className="step sealed" key={s.kind}>
+                      <span className="n num">{i + 1}</span>
+                      <span className="name">{s.name}</span>
+                      <span className="state">{draft[s.kind].body.trim() ? "written" : "empty"}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+              <section>
+                <header>
+                  <h3>{them(view)}&rsquo;s side</h3>
+                  <span className="pill">Locked</span>
+                </header>
+                <p className="hint">
+                  Still sealed. Nothing of {them(view)}&rsquo;s is shown until a run finishes, so a
+                  failed run shows neither of you anything.
+                </p>
+              </section>
+
+              <section>
+                <header>
+                  <h3>Nothing was lost</h3>
+                </header>
+                <p className="hint">
+                  Both accounts are stored exactly as you locked them, and a failed run writes no
+                  result at all, so there is no half-verdict for either of you to see. You can leave
+                  this and come back to the same link later.
+                </p>
+              </section>
+            </div>
+          </section>
+
+          <section className="panel">
+            <header>
+              <h2>The mediator did not finish</h2>
+            </header>
+            <p style={{ maxWidth: "62ch" }}>
+              This usually means the model was unreachable, or it answered with something that did
+              not fit the shape a resolution has to come back in. Nothing was half-written: a run
+              either produces a whole result or none.
+            </p>
+            <p className="hint" style={{ marginTop: 12, maxWidth: "62ch" }}>
+              Running it again starts from the same two accounts, unchanged. Neither of you has to
+              rewrite anything, and either link can start it.
+            </p>
+            <div className="steps" style={{ marginTop: 20 }}>
+              <div className="step"><span className="n num">1</span><span className="name">Both accounts are read again</span><span className="state">as locked</span></div>
+              <div className="step"><span className="n num">2</span><span className="name">One run, under a minute</span><span className="state">same as before</span></div>
+              <div className="step"><span className="n num">3</span><span className="name">Both links show the result</span><span className="state">together</span></div>
+            </div>
+            <p className="safety" style={{ marginTop: 20, maxWidth: "62ch" }}>
+              <b>Not for abuse or safety.</b> If what you are arguing about involves being
+              threatened, controlled or hurt, do not keep retrying this. A mediator is the wrong
+              tool and this one will say so rather than take a side; please talk to someone who can
+              actually help.
+            </p>
+            {error && <p role="alert" style={{ marginTop: 12, color: "#c4242a" }}>{error}</p>}
+            <div className="actions">
+              <button className="btn primary" onClick={retry} disabled={locking}>
+                {locking ? "Running it again\u2026" : "Run the mediator again"}
+              </button>
+              <span className="hint">Either link can do this.</span>
+            </div>
+          </section>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="canvas">
@@ -216,6 +358,36 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
               <p className="hint">
                 This page checks every five seconds. You can close it and come back to the same link.
               </p>
+            </div>
+
+            <p className="hint" style={{ marginTop: 16 }}>
+              Nothing is emailed and there is no case history. This link is the only way back to the
+              result, for both of you, so keep it.
+            </p>
+
+            <h3 className="sub-head" style={{ marginTop: 24 }}>What you locked</h3>
+            <div className="review">
+              {STEPS.map((s) => (
+                <div className="review-item" key={s.kind}>
+                  <header>
+                    <h3>{s.name}</h3>
+                  </header>
+                  {draft[s.kind].body.trim() ? (
+                    <p>{draft[s.kind].body}</p>
+                  ) : (
+                    <p className="none">You left this one empty.</p>
+                  )}
+                  {draft[s.kind].links.length > 0 && (
+                    <ul>
+                      {draft[s.kind].links.map((l) => (
+                        <li key={l}>
+                          <a href={l} target="_blank" rel="noreferrer noopener">{l}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
             </div>
           </section>
         ) : reviewing ? (

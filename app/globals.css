@@ -169,3 +169,37 @@ textarea.input { height: auto; min-height: 120px; padding: 12px; resize: vertica
   .actions { position: sticky; bottom: 0; margin: 24px -16px 0; padding: 12px 16px; background: var(--ground); border-top: 1px solid var(--border); }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; } }
+
+/* ---------- the verdict: the spine opens, both columns full ---------- */
+.verdict { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: var(--gap); align-items: start; }
+.verdict > .span { grid-column: 1 / -1; }
+.verdict .rail { display: grid; gap: var(--gap); }
+.sub-head { font-size: var(--fs-small); font-weight: 600; color: var(--muted); margin: 16px 0 6px; }
+.panel > .two-up > div > .sub-head:first-child, .dispute .sub-head { margin-top: 0; }
+.two-up { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.bullets { display: grid; gap: 6px; }
+.bullets li { position: relative; padding-left: 16px; }
+.bullets li::before { content: ""; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--control); }
+.bullets a { color: var(--accent); word-break: break-all; }
+.bullets a:hover { text-decoration: underline; }
+
+/* the one hue, on the one thing that belongs to neither person */
+.resolution { display: grid; gap: 2px; }
+.resolution li { display: flex; gap: 14px; padding: 14px 0; }
+.resolution li + li { border-top: 1px solid var(--rule); }
+.resolution .n { width: 24px; flex: none; font-size: 18px; font-weight: 600; color: var(--accent); line-height: 26px; }
+.resolution .body { display: grid; gap: 4px; }
+.resolution .step-text { font-size: 18px; line-height: 26px; }
+.resolution .who { color: var(--muted); font-size: var(--fs-small); }
+
+.disputes { display: grid; gap: 24px; }
+.dispute + .dispute { padding-top: 24px; border-top: 1px solid var(--rule); }
+.dispute h3 { font-size: var(--fs-body); font-weight: 600; margin-bottom: 10px; }
+.dispute p { color: var(--text); }
+.account { display: grid; gap: 14px; }
+.account p { white-space: pre-wrap; }
+
+@media (max-width: 860px) {
+  .verdict { grid-template-columns: minmax(0, 1fr); }
+  .two-up { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+}
