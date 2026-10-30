@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MAX_BODY, MAX_LINKS, MODE_LABEL, MODE_MEANS, STEPS, STEP_COUNT, saveableLinks, shouldPoll } from "@/lib/steps";
+import { MAX_BODY, MAX_LINKS, MODE_LABEL, MODE_MEANS, STEPS, STEP_COUNT, appended, saveableLinks, shouldPoll } from "@/lib/steps";
 import type { Kind } from "@/lib/party";
 import Verdict, { type VerdictData } from "./Verdict";
+import Dictate from "./Dictate";
 
 type Statement = { body: string; links: string[] };
 export type PartyView = {
@@ -503,8 +504,11 @@ function StepPanel({
           <span id="body-count" className={`num ${over ? "over" : ""}`}>
             {value.body.length.toLocaleString()} of {MAX_BODY.toLocaleString()} characters
           </span>
-          <span>Saves by itself as you type</span>
+          <span>Saves by itself</span>
         </div>
+        <Dictate
+          onText={(chunk) => onChange({ ...value, body: appended(value.body, chunk, MAX_BODY) })}
+        />
       </div>
 
       {s.kind === "EVIDENCE" && (

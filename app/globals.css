@@ -203,3 +203,17 @@ textarea.input { height: auto; min-height: 120px; padding: 12px; resize: vertica
   .verdict { grid-template-columns: minmax(0, 1fr); }
   .two-up { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 }
+
+/* Speaking a statement instead of typing it. */
+.dictate { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; margin-top: 12px; }
+.dictate .hint { font-size: var(--fs-small); flex: 1 1 22ch; }
+/* .btn.ghost zeroes the border; this is a real control, so it keeps one. */
+.btn.ghost.dictate-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border-color: var(--control); background: var(--surface);
+}
+.dictate-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); flex: none; }
+.btn.ghost.dictate-btn.on { border-color: #c4242a; color: #c4242a; }
+.dictate-btn.on .dictate-dot { background: #c4242a; animation: dictate-pulse 1.4s ease-in-out infinite; }
+@keyframes dictate-pulse { 50% { opacity: 0.25; } }
+@media (prefers-reduced-motion: reduce) { .dictate-btn.on .dictate-dot { animation: none; } }

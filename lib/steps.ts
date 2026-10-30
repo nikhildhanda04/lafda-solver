@@ -84,3 +84,14 @@ export function saveableLinks(links: string[]): string[] {
     })
     .slice(0, MAX_LINKS);
 }
+
+/**
+ * Adds a spoken phrase to the end of what is already written, keeping exactly
+ * one space between them and never running past the limit.
+ */
+export function appended(body: string, chunk: string, max: number) {
+  const words = chunk.trim();
+  if (!words) return body;
+  const joined = body && !/\s$/.test(body) ? `${body} ${words}` : `${body}${words}`;
+  return joined.slice(0, max);
+}

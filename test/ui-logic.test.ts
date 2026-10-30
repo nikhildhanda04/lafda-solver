@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { shouldPoll, saveableLinks } from "../lib/steps";
+import { shouldPoll, saveableLinks, appended } from "../lib/steps";
 
 test("the page polls only while an outcome is still coming", () => {
   // Writing: nothing to wait for.
@@ -43,4 +43,18 @@ test("saveableLinks trims, drops blanks, and never exceeds the cap", () => {
     saveableLinks(Array.from({ length: 9 }, (_, i) => `https://e${i}.example.com`)).length,
     5,
   );
+});
+
+test("a spoken phrase joins onto what is already written", () => {
+  // One space between the old text and the new phrase, never two.
+  assert.equal(
+    appended("I paid for the cabin.", "She cancelled it.", 100),
+    "I paid for the cabin. She cancelled it.",
+  );
+  assert.equal(appended("I paid. ", "She cancelled.", 100), "I paid. She cancelled.");
+  // An empty box starts clean, and a phrase that is only breath changes nothing.
+  assert.equal(appended("", "  She cancelled.  ", 100), "She cancelled.");
+  assert.equal(appended("I paid.", "   ", 100), "I paid.");
+  // Speaking cannot push a statement past the limit the textarea enforces.
+  assert.equal(appended("abc", "defghij", 6), "abc de");
 });
