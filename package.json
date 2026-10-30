@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "test": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.test --test --test-concurrency=1 test/*.test.ts",
     "seed": "tsx --env-file-if-exists=.env prisma/seed.ts",

@@ -21,6 +21,15 @@ One container, one Postgres, one IAM role. Nothing else is needed for the MVP.
 
 `lib/env.ts` validates these at boot, so a missing or malformed `DATABASE_URL` fails the container at start rather than on the first request.
 
+`DATABASE_URL` is needed at **build** time as well as at runtime, on any host
+that builds from source. `npm run build` runs `prisma generate` first, and
+`prisma.config.ts` resolves `DATABASE_URL` to configure the datasource; the
+build never opens a connection, so any syntactically valid URL gets it
+through, but an absent one fails the build. The generated client lives in
+`lib/generated/` and is deliberately not committed, so a host that installs
+dependencies and runs `next build` directly, without `npm run build`, fails
+with `Can't resolve './generated/prisma/client'`.
+
 ## IAM
 
 The App Runner **instance** role (not the access role) needs exactly one action:
