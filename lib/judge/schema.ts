@@ -24,7 +24,7 @@ export const JudgeResult = z.object({
 
 export type JudgeResult = z.infer<typeof JudgeResult>;
 
-/** What the provider is given. Sides are already anonymised to Person 1 / Person 2. */
+/** What the provider is given. Sides are anonymised to Person A / Person B. */
 export type JudgeSide = {
   opening: string;
   context: string;
@@ -36,8 +36,10 @@ export type JudgeSide = {
 export type JudgeInput = {
   mode: "COMMON_GROUND" | "COMMON_GROUND_AND_VERDICT";
   title: string;
-  person1: JudgeSide;
-  person2: JudgeSide;
+  personA: JudgeSide;
+  personB: JudgeSide;
+  /** Show B's account first. Reading order only; the labels stay true to the slot. */
+  bFirst?: boolean;
 };
 
 export type JudgeProvider = (input: JudgeInput) => Promise<{

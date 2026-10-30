@@ -49,7 +49,25 @@ export default function Verdict({
 
   return (
     <>
-      {/* The screen's question is "what do we do now?", so the resolution is the biggest block. */}
+      {/* The finding comes first. Everything below it is the working, and a page
+          that opens with the working reads as a summary rather than a decision. */}
+      {v.fault_view && (
+        <section className="panel verdict-ruling">
+          <header>
+            <h2>The decision</h2>
+            <span className="pill">Confidence: {v.fault_view.confidence}</span>
+          </header>
+          <div className="ruling-row">
+            <p className="ruling">{v.fault_view.text}</p>
+            <p className="hint ruling-note">
+              This is a reading of the two accounts, not a finding of fact, and nothing about it
+              is binding. It is here to be argued with.
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* Then what to do about it. */}
       <section className="panel verdict-lead">
         <header>
           <h2>What to do now</h2>
@@ -133,22 +151,13 @@ export default function Verdict({
         </section>
       )}
 
-      {v.fault_view && (
-        <section className="panel span">
-          <header>
-            <h2>Who was right</h2>
-            <span className="pill">Confidence: {v.fault_view.confidence}</span>
-          </header>
-          <p style={{ maxWidth: "70ch" }}>{v.fault_view.text}</p>
-        </section>
-      )}
-
       {/* The withheld column finally opens: both accounts, side by side. */}
       <section className="panel span">
         <header>
           <h2>Both accounts, in full</h2>
           <span className="meta">Sealed until you had both locked</span>
         </header>
+        <p className="hint" style={{ maxWidth: "70ch", marginBottom: 20 }}>{v.summary_neutral}</p>
         <div className="two-up">
           <div>
             <h3 className="sub-head">{youName}, you wrote</h3>

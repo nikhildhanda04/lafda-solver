@@ -120,10 +120,10 @@ test("a judge that throws leaves the case FAILED, not stuck in JUDGING", async (
   assert.equal(await prisma.verdict.count({ where: { caseId } }), 0);
 });
 
-test("the judge is given neutral Person 1 / Person 2 labels and the mapping is recorded", async () => {
-  let seen: { person1: string; person2: string } | null = null;
+test("the judge is given neutral Person A / Person B labels and the reading order is recorded", async () => {
+  let seen: { personA: string; personB: string } | null = null;
   setProvider(async (input) => {
-    seen = { person1: input.person1.opening, person2: input.person2.opening };
+    seen = { personA: input.personA.opening, personB: input.personB.opening };
     return mockJudge(input);
   });
   const { caseId, a, b } = await makeCase();
@@ -132,9 +132,9 @@ test("the judge is given neutral Person 1 / Person 2 labels and the mapping is r
 
   assert.ok(seen, "the provider was never called");
   const verdict = await prisma.verdict.findUniqueOrThrow({ where: { caseId } });
-  const json = verdict.json as { assignment?: { person1: string; person2: string } };
-  assert.ok(json.assignment, "the Person 1/2 mapping was not stored");
-  assert.deepEqual([json.assignment!.person1, json.assignment!.person2].sort(), ["A", "B"]);
+  const json = verdict.json as { assignment?: { first: string; second: string } };
+  assert.ok(json.assignment, "the reading order was not recorded");
+  assert.deepEqual([json.assignment!.first, json.assignment!.second].sort(), ["A", "B"]);
 });
 
 test("an unknown token cannot lock", async () => {

@@ -10,7 +10,9 @@ const HELP = {
 
 export type VerdictView =
   | { safety_flag: "possible_abuse" | "self_harm"; help: string }
-  | (Omit<JudgeResult, "fault_view"> & {
+  // A flagged verdict is replaced by help, so this branch is always "none".
+  | (Omit<JudgeResult, "fault_view" | "safety_flag"> & {
+      safety_flag: "none";
       fault_view: JudgeResult["fault_view"] | null;
       names: { A: string; B: string };
     });
@@ -33,6 +35,7 @@ export function verdictView(
 
   return {
     ...v,
+    safety_flag: "none",
     fault_view: mode === "COMMON_GROUND_AND_VERDICT" && v.fault_view.stated ? v.fault_view : null,
     names,
   };

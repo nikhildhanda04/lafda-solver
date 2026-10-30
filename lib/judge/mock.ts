@@ -4,13 +4,13 @@ const first = (s: string, fallback: string) =>
   s.trim().split(/(?<=[.!?])\s+/)[0]?.trim() || fallback;
 
 /**
- * Stands in for the real mediator until BEDROCK_MODEL_ID is set. It builds a
+ * Stands in for the real mediator until a real provider is configured. It builds a
  * well-formed JudgeResult out of what both people actually wrote so the whole
  * flow — and the results screen — can be exercised without a model.
  */
 export async function mockJudge(input: JudgeInput) {
-  const p1 = input.person1;
-  const p2 = input.person2;
+  const pa = input.personA;
+  const pb = input.personB;
 
   const result: JudgeResult = {
     summary_neutral: `Both accounts describe the same episode: ${input.title.toLowerCase()}. They agree on roughly what happened and disagree on what it meant and who should carry the cost.`,
@@ -21,8 +21,8 @@ export async function mockJudge(input: JudgeInput) {
     disputed_facts: [
       {
         issue: "What each of you understood had been agreed",
-        a_says: first(p1.context || p1.opening, "Person 1 did not describe this step."),
-        b_says: first(p2.context || p2.opening, "Person 2 did not describe this step."),
+        a_says: first(pa.context || pa.opening, "Person A did not describe this step."),
+        b_says: first(pb.context || pb.opening, "Person B did not describe this step."),
       },
     ],
     needs_of_each: {
@@ -35,9 +35,9 @@ export async function mockJudge(input: JudgeInput) {
       "Both of you want the next plan confirmed properly.",
     ],
     proposed_resolution: [
-      { step: first(p1.proposal, "Share the cost of what has already been spent."), who: "BOTH" },
-      { step: first(p2.proposal, "Agree the next plan in writing before anything is paid."), who: "BOTH" },
-      { step: "Say out loud what counts as confirmed, so neither of you has to guess next time.", who: "BOTH" },
+      { step: first(pa.proposal, "Pay back half of what has already been spent, within two weeks."), who: "A" },
+      { step: first(pb.proposal, "Put the next plan in writing before anything is paid for."), who: "B" },
+      { step: "Settle the outstanding amount in one payment rather than in parts.", who: "BOTH" },
     ],
     fault_view:
       input.mode === "COMMON_GROUND_AND_VERDICT"

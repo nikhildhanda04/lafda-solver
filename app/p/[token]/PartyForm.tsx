@@ -132,9 +132,13 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
           <div>
             <h1>{view.case.title}</h1>
             <p className="sub">
-              {view.verdict.safety_flag === "none"
-                ? view.verdict.summary_neutral
-                : "Both sides are in, and this is not an argument a mediator should settle."}
+              {view.verdict.safety_flag !== "none"
+                ? "Both sides are in, and this is not an argument a mediator should settle."
+                : view.verdict.fault_view
+                  // The finding is the next thing on the page; restating the
+                  // dispute above it is what makes a decision read as a summary.
+                  ? "Both sides are in. Here is what the mediator decided."
+                  : view.verdict.summary_neutral}
             </p>
           </div>
           <span className="stamp">{MODE_LABEL[view.case.mode]}</span>

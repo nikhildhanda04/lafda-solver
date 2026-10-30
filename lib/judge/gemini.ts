@@ -90,7 +90,7 @@ export function makeGeminiJudge(opts: {
   return async (input: JudgeInput) => {
     const body = JSON.stringify({
       systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-      contents: [{ role: "user", parts: [{ text: buildUserMessage(input) }] }],
+      contents: [{ role: "user", parts: [{ text: buildUserMessage(input, input.bFirst) }] }],
       generationConfig: {
         responseMimeType: "application/json",
         responseSchema: RESPONSE_SCHEMA,

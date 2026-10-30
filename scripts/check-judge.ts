@@ -12,14 +12,14 @@ import type { JudgeInput } from "../lib/judge/schema";
 const CASE: JudgeInput = {
   mode: "COMMON_GROUND_AND_VERDICT",
   title: "The cancelled weekend trip",
-  person1: {
+  personA: {
     opening: "She cancelled the trip the night before, after I had already paid.",
     context: "I booked the cabin on the 3rd and told her that evening. On the 14th she said her sister needed her and left. The deposit was non-refundable.",
     proposal: "She covers half the deposit and we rebook within a month, with the date agreed in writing.",
     evidence: "The booking confirmation and the message where I told her the date.",
     links: [],
   },
-  person2: {
+  personB: {
     opening: "My sister had a medical emergency and he is treating it like I broke a contract.",
     context: "He mentioned a cabin in passing but never confirmed a date with me. On the 14th my sister was admitted to hospital and I left that night.",
     proposal: "We split the deposit loss evenly and agree that trips get confirmed together before anything is paid.",

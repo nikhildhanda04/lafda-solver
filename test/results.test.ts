@@ -74,7 +74,7 @@ test("a case still JUDGING returns a waiting state and no verdict", async () => 
   void b;
 });
 
-test("a DECIDED case returns the verdict with Person 1 and 2 mapped back to names", async () => {
+test("a DECIDED case returns the verdict with Person A and B mapped back to names", async () => {
   setProvider(mockJudge);
   const { a, b } = await makeCase();
   await lock(a);

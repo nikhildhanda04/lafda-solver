@@ -89,7 +89,7 @@ export function makeBedrockJudge(opts: { client: MinimalClient; modelId: string 
       new ConverseCommand({
         modelId: opts.modelId,
         system: [{ text: SYSTEM_PROMPT }],
-        messages: [{ role: "user", content: [{ text: buildUserMessage(input) }] }],
+        messages: [{ role: "user", content: [{ text: buildUserMessage(input, input.bFirst) }] }],
         toolConfig: {
           tools: [TOOL as never],
           toolChoice: { tool: { name: TOOL.toolSpec.name } },

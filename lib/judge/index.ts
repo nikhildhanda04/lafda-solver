@@ -29,16 +29,17 @@ export async function runJudge(caseId: string): Promise<void> {
     const b = c.parties.find((p) => p.slot === "B");
     if (!a || !b) throw new Error(`Case ${caseId} does not have two parties`);
 
-    // Neutral labels in a random order, so the creator never gets the first slot
-    // by default. The mapping is stored so the results page can name people again.
-    const firstIsA = Math.random() < 0.5;
-    const [p1, p2] = firstIsA ? [a, b] : [b, a];
+    // The accounts are shown in a random order, so the creator never reads first
+    // by default. The labels stay tied to the real slot, so the mediator's "A"
+    // is always this case's A and nothing downstream has to be un-swapped.
+    const bFirst = Math.random() < 0.5;
 
     const input: JudgeInput = {
       mode: c.mode,
       title: c.title,
-      person1: sideOf(p1.statements),
-      person2: sideOf(p2.statements),
+      personA: sideOf(a.statements),
+      personB: sideOf(b.statements),
+      bFirst,
     };
 
     const provider = await getProvider();
@@ -49,7 +50,7 @@ export async function runJudge(caseId: string): Promise<void> {
       prisma.verdict.create({
         data: {
           caseId,
-          json: { ...validated, assignment: { person1: p1.slot, person2: p2.slot } },
+          json: { ...validated, assignment: { first: bFirst ? "B" : "A", second: bFirst ? "A" : "B" } },
           model,
           inputTokens,
           outputTokens,

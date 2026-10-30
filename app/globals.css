@@ -217,3 +217,10 @@ textarea.input { height: auto; min-height: 120px; padding: 12px; resize: vertica
 .dictate-btn.on .dictate-dot { background: #c4242a; animation: dictate-pulse 1.4s ease-in-out infinite; }
 @keyframes dictate-pulse { 50% { opacity: 0.25; } }
 @media (prefers-reduced-motion: reduce) { .dictate-btn.on .dictate-dot { animation: none; } }
+
+/* The finding leads the results page, so it is set to be read first. */
+.verdict-ruling { grid-column: 1 / -1; }
+.verdict-ruling .ruling-row { display: grid; grid-template-columns: minmax(0, 58ch) minmax(0, 1fr); gap: 40px; align-items: start; }
+.verdict-ruling .ruling { font-size: 17px; line-height: 26px; }
+.verdict-ruling .ruling-note { max-width: 34ch; }
+@media (max-width: 860px) { .verdict-ruling .ruling-row { grid-template-columns: 1fr; gap: 16px; } }
