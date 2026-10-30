@@ -6,6 +6,7 @@ import { POST as lockParty } from "../app/api/p/[token]/lock/route";
 import { GET as getParty } from "../app/api/p/[token]/route";
 import { POST as retryCase } from "../app/api/cases/[id]/retry/route";
 import { prisma } from "../lib/db";
+import { inlineJudge, stopInlineJudge, judged } from "./judge-inline";
 import { _reset as resetRateLimit } from "../lib/ratelimit";
 import { setProvider, resetProvider } from "../lib/judge/provider";
 import { mockJudge } from "../lib/judge/mock";
@@ -34,12 +35,15 @@ async function makeCase(mode = "COMMON_GROUND_AND_VERDICT") {
   return { caseId, a, b };
 }
 
-const lock = (token: string) =>
-  lockParty(new Request("http://localhost/x", { method: "POST" }), { params: Promise.resolve({ token }) });
+const lock = async (token: string) => {
+  const res = await lockParty(new Request("http://localhost/x", { method: "POST" }), { params: Promise.resolve({ token }) });
+  await judged(); // the handler has answered; now let the scheduled run finish
+  return res;
+};
 const get = (token: string) =>
   getParty(new Request("http://localhost/x"), { params: Promise.resolve({ token }) });
-const retry = (id: string, token?: string) =>
-  retryCase(
+const retry = async (id: string, token?: string) => {
+  const res = await retryCase(
     new Request("http://localhost/x", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -47,6 +51,9 @@ const retry = (id: string, token?: string) =>
     }),
     { params: Promise.resolve({ id }) },
   );
+  await judged(); // the handler answers first; the re-run happens behind it
+  return res;
+};
 
 const withFault = (over: Partial<JudgeResult>) =>
   setProvider(async (input) => {
@@ -55,10 +62,14 @@ const withFault = (over: Partial<JudgeResult>) =>
   });
 
 beforeEach(async () => {
+  inlineJudge();
   await prisma.case.deleteMany();
   resetRateLimit(); // the limiter is process-global; these suites open more than its hourly cap
 });
-afterEach(() => resetProvider());
+afterEach(() => {
+  stopInlineJudge();
+  resetProvider();
+});
 
 test("a case still JUDGING returns a waiting state and no verdict", async () => {
   setProvider(async () => {

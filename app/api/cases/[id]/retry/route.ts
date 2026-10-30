@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { runJudge } from "@/lib/judge";
+import { scheduleJudge } from "@/lib/judge";
 import { hashToken } from "@/lib/tokens";
 
 type Ctx = { params: Promise<{ id: string }> };
@@ -32,7 +32,8 @@ export async function POST(req: Request, { params }: Ctx) {
     return NextResponse.json({ error: "This case is not waiting on a failed run." }, { status: 409 });
   }
 
-  await runJudge(id);
-  const now = await prisma.case.findUniqueOrThrow({ where: { id } });
-  return NextResponse.json({ status: now.status });
+  // As with locking: the case is already JUDGING and the page polls, so the
+  // second run happens after this response rather than inside it.
+  scheduleJudge(id);
+  return NextResponse.json({ status: "JUDGING" });
 }

@@ -4,6 +4,7 @@ import { POST as createCase } from "../app/api/cases/route";
 import { PUT as putStatement } from "../app/api/p/[token]/statements/[kind]/route";
 import { POST as lockParty } from "../app/api/p/[token]/lock/route";
 import { prisma } from "../lib/db";
+import { inlineJudge, stopInlineJudge, judged } from "./judge-inline";
 import { _reset as resetRateLimit } from "../lib/ratelimit";
 import { setProvider, resetProvider } from "../lib/judge/provider";
 import { makeBedrockJudge } from "../lib/judge/bedrock";
@@ -49,10 +50,14 @@ async function goodResult() {
 }
 
 beforeEach(async () => {
+  inlineJudge();
   await prisma.case.deleteMany();
   resetRateLimit(); // the limiter is process-global; these suites open more than its hourly cap
 });
-afterEach(() => resetProvider());
+afterEach(() => {
+  stopInlineJudge();
+  resetProvider();
+});
 
 test("the Converse request carries the model id, the system prompt and delimited person blocks", async () => {
   const result = await goodResult();
@@ -141,6 +146,7 @@ test("token usage and the model id are recorded on the verdict", async () => {
     await lockParty(new Request("http://localhost/x", { method: "POST" }), {
       params: Promise.resolve({ token }),
     });
+    await judged(); // the handler answers first; the run happens behind it
   }
 
   const verdict = await prisma.verdict.findUniqueOrThrow({ where: { caseId } });

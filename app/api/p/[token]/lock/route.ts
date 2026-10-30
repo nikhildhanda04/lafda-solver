@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { claimJudging, runJudge } from "@/lib/judge";
+import { claimJudging, scheduleJudge } from "@/lib/judge";
 import { resolveParty } from "@/lib/party";
 
 type Ctx = { params: Promise<{ token: string }> };
@@ -18,7 +18,8 @@ export async function POST(_req: Request, { params }: Ctx) {
     });
   }
 
-  if (await claimJudging(party.caseId)) await runJudge(party.caseId);
+  // Scheduled, not awaited: the case is already JUDGING, and the page polls.
+  if (await claimJudging(party.caseId)) scheduleJudge(party.caseId);
 
   const now = await prisma.case.findUniqueOrThrow({ where: { id: party.caseId } });
   return NextResponse.json({ locked: true, status: now.status });

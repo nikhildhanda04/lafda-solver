@@ -352,13 +352,21 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
         {locked ? (
           <section className="panel">
             <header>
-              <h2>{view.other.locked ? "Both sides are in" : "Waiting for the other side"}</h2>
+              <h2>
+              {view.case.status === "JUDGING"
+                ? "The mediator is deciding"
+                : view.other.locked
+                  ? "Both sides are in"
+                  : "Waiting for the other side"}
+            </h2>
             </header>
             <div className="waiting">
               <p className="lede">
-                {view.other.locked
-                  ? "The mediator is reading both accounts now. This page will show the result by itself."
-                  : `Your side is sealed. Nothing more to do until ${them(view)} locks theirs.`}
+                {view.case.status === "JUDGING"
+                  ? "Both sides are in and the mediator is reading them now. It usually takes under a minute."
+                  : view.other.locked
+                    ? "The mediator is reading both accounts now. This page will show the result by itself."
+                    : `Your side is sealed. Nothing more to do until ${them(view)} locks theirs.`}
               </p>
               <p className="hint">
                 This page checks every five seconds. You can close it and come back to the same link.

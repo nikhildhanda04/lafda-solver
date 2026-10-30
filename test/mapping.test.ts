@@ -4,6 +4,7 @@ import { POST as createCase } from "../app/api/cases/route";
 import { PUT as putStatement } from "../app/api/p/[token]/statements/[kind]/route";
 import { POST as lockParty } from "../app/api/p/[token]/lock/route";
 import { partyView } from "../lib/party";
+import { inlineJudge, stopInlineJudge, judged } from "./judge-inline";
 import { prisma } from "../lib/db";
 import { _reset as resetRateLimit } from "../lib/ratelimit";
 import { setProvider, resetProvider } from "../lib/judge/provider";
@@ -18,10 +19,12 @@ import type { JudgeResult } from "../lib/judge/schema";
 
 const realRandom = Math.random;
 beforeEach(async () => {
+  inlineJudge();
   await prisma.case.deleteMany();
   resetRateLimit();
 });
 afterEach(() => {
+  stopInlineJudge();
   Math.random = realRandom;
   resetProvider();
 });
@@ -69,6 +72,7 @@ async function decidedToken() {
     await lockParty(new Request(`http://localhost/api/p/${token}/lock`, { method: "POST" }), {
       params: Promise.resolve({ token }),
     });
+    await judged(); // the handler answers first; the run happens behind it
   }
   return a;
 }

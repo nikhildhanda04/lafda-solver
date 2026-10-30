@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { prisma } from "../db";
 import { getProvider } from "./provider";
 import { JudgeResult, type JudgeInput, type JudgeSide } from "./schema";
@@ -78,4 +79,23 @@ export async function claimJudging(caseId: string): Promise<boolean> {
     data: { status: "JUDGING" },
   });
   return count === 1;
+}
+
+/**
+ * Tests call the route handlers directly, with no request scope for `after` to
+ * attach to, so they swap the scheduler the way they already swap the provider.
+ */
+let scheduler: ((caseId: string) => void) | null = null;
+export const setScheduler = (fn: (caseId: string) => void) => { scheduler = fn; };
+export const resetScheduler = () => { scheduler = null; };
+
+/**
+ * Hands the run to Next's `after`, which fires once the response has been sent
+ * and keeps the serverless invocation alive while it works. Locking used to
+ * await the model inside the request, so the second person to lock watched a
+ * "Locking…" button for however long the mediator took.
+ */
+export function scheduleJudge(caseId: string): void {
+  if (scheduler) return scheduler(caseId);
+  after(() => runJudge(caseId));
 }

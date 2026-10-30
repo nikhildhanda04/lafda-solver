@@ -4,6 +4,7 @@ import { POST as createCase } from "../app/api/cases/route";
 import { PUT as putStatement } from "../app/api/p/[token]/statements/[kind]/route";
 import { POST as lockParty } from "../app/api/p/[token]/lock/route";
 import { prisma } from "../lib/db";
+import { inlineJudge, stopInlineJudge, judged } from "./judge-inline";
 import { _reset as resetRateLimit } from "../lib/ratelimit";
 import { setProvider, resetProvider } from "../lib/judge/provider";
 import type { JudgeResult } from "../lib/judge/schema";
@@ -31,18 +32,25 @@ async function makeCase() {
   return { caseId, a, b };
 }
 
-const lock = (token: string) =>
-  lockParty(new Request(`http://localhost/api/p/${token}/lock`, { method: "POST" }), {
+const lock = async (token: string) => {
+  const res = await lockParty(new Request(`http://localhost/api/p/${token}/lock`, { method: "POST" }), {
     params: Promise.resolve({ token }),
   });
+  await judged(); // the handler has answered; now let the scheduled run finish
+  return res;
+};
 
 let calls = 0;
 beforeEach(async () => {
+  inlineJudge();
   await prisma.case.deleteMany();
   resetRateLimit(); // the limiter is process-global; these suites open more than its hourly cap
   calls = 0;
 });
-afterEach(() => resetProvider());
+afterEach(() => {
+  stopInlineJudge();
+  resetProvider();
+});
 
 const counting = (impl = mockJudge) =>
   setProvider(async (input): Promise<{ result: JudgeResult; model: string }> => {
@@ -143,4 +151,30 @@ test("an unknown token cannot lock", async () => {
   const res = await lock("not-a-token");
   assert.equal(res.status, 404);
   assert.equal(calls, 0);
+});
+
+test("the second lock is answered before the mediator runs, not after it", async () => {
+  let reachedModel = false;
+  setProvider(async (input) => {
+    reachedModel = true;
+    return mockJudge(input);
+  });
+  const { caseId, a, b } = await makeCase();
+  await lock(a);
+
+  // The raw handler, so the scheduled run is still outstanding when it returns.
+  const res = await lockParty(new Request(`http://localhost/api/p/${b}/lock`, { method: "POST" }), {
+    params: Promise.resolve({ token: b }),
+  });
+
+  assert.equal(res.status, 200);
+  assert.equal((await res.json()).status, "JUDGING", "the case should already be claimed");
+  assert.equal(reachedModel, false, "the lock request waited for the model to answer");
+
+  await judged();
+  assert.equal(
+    (await prisma.case.findUniqueOrThrow({ where: { id: caseId } })).status,
+    "DECIDED",
+    "the scheduled run never happened",
+  );
 });
