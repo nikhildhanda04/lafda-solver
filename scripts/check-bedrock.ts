@@ -57,7 +57,9 @@ async function main() {
     const message = err instanceof Error ? err.message : String(err);
     console.error(`FAILED: ${message}\n`);
     if (/could not load credentials|CredentialsProviderError/i.test(message)) {
-      console.error("No AWS credentials found. Create ~/.aws/credentials (see DEPLOY.md).");
+      console.error("No AWS credentials found. Set AWS_BEARER_TOKEN_BEDROCK, or create ~/.aws/credentials (see DEPLOY.md).");
+    } else if (/account is currently being verified/i.test(message)) {
+      console.error("The credentials and the model id are fine; AWS has not finished verifying this account yet. Nothing to fix here, run this again later.");
     } else if (/AccessDenied|not authorized/i.test(message)) {
       console.error("Credentials work, but this principal lacks bedrock:InvokeModel on that model ARN.");
     } else if (/don't have access to the model|ValidationException.*model/i.test(message)) {

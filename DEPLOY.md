@@ -17,6 +17,7 @@ One container, one Postgres, one IAM role. Nothing else is needed for the MVP.
 | `DATABASE_URL` | yes | `postgresql://USER:PASSWORD@HOST:5432/love_lafda?sslmode=require` |
 | `BEDROCK_MODEL_ID` | no | Unset means the built-in mock judge answers. Set it to the model you enabled in the Bedrock console. Currently `amazon.nova-2-lite-v1:0`; `anthropic.claude-sonnet-5` is the stronger option at roughly 2.8 cents per case against Nova's 0.6 cents. |
 | `AWS_REGION` | no | Defaults to `us-east-1`. Must be a region where your model is enabled. |
+| `AWS_BEARER_TOKEN_BEDROCK` | no | A Bedrock API key, if you are using one instead of an IAM role or `~/.aws/credentials`. Paste the token only: the Bedrock console prints a whole `export AWS_BEARER_TOKEN_BEDROCK=...` line, and the `export ` prefix must not end up in the value. In App Runner prefer the instance role below and leave this unset. |
 
 `lib/env.ts` validates these at boot, so a missing or malformed `DATABASE_URL` fails the container at start rather than on the first request.
 
@@ -36,6 +37,10 @@ The App Runner **instance** role (not the access role) needs exactly one action:
 ```
 
 Swap the resource ARN when you change `BEDROCK_MODEL_ID`. If you move to a cross-region inference profile, you also need `bedrock:InvokeModel` on the profile ARN and on the model ARN in each region it can route to.
+
+A brand-new AWS account is held for verification for up to a couple of hours. Until
+that clears, every call fails with "Your account is currently being verified" even
+though the credentials and the model id are correct; `npm run judge:check` names it.
 
 Enable the model first: Bedrock console → Model access. A model that is not enabled fails at call time, not at deploy time, and surfaces to both people as the FAILED screen with a retry button.
 
