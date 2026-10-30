@@ -49,19 +49,19 @@ export default function Landing() {
       <Motion />
 
       <main id="top">
-        {/* 1. Hero — fragment on a shaped stage */}
+        {/* 1. Hero — the court. Clawd blindfolded, the two sides hanging from its scales. */}
         <section className="hero">
+          <div className="wall" aria-hidden="true"><span /><span /><span /><span /></div>
+          <div className="bench" aria-hidden="true" />
           <div className="hero-words">
             <h1>Both sides.<br />Then a verdict.</h1>
             <p>
-              You and one other person each write your side in private. Neither of you reads the
-              other until you have both finished.
+              You and one other person each write your side in private. Clawd reads both at
+              once, blind, and neither of you sees the other until you have both finished.
             </p>
             <a className="btn primary" href="#open">Open a case</a>
           </div>
-          <div className="hero-stage">
-            <HeroSpine />
-          </div>
+          <HeroSpine />
         </section>
 
         {/* 2. How it works — one case, four fields */}

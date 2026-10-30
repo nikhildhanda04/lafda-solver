@@ -13,8 +13,9 @@ export default function Motion() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     root.classList.add("js");
 
-    // The signature move: the hero stage opens like a shutter on load, once.
-    const stage = document.querySelector<HTMLElement>(".hero-stage");
+    // The signature move: the court assembles on load — seal, Clawd, the beam,
+    // then a pan onto each end of it.
+    const stage = document.querySelector<HTMLElement>(".court-stage");
     requestAnimationFrame(() => stage?.classList.add("is-in"));
 
     // Section entrances, in reading order, staggered.
@@ -35,8 +36,9 @@ export default function Motion() {
     );
     document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
 
-    // The one moving picture: the hero fragment drifts against the scroll.
-    const spine = document.querySelector<HTMLElement>(".spine-demo");
+    // The one moving picture: the room sinks against the scroll while the
+    // scales hanging in front of it stay put, so the bench gains depth.
+    const spine = document.querySelector<HTMLElement>(".court");
     let frame = 0;
     const onScroll = () => {
       if (frame) return;
@@ -44,7 +46,7 @@ export default function Motion() {
         frame = 0;
         if (!spine) return;
         const y = Math.min(window.scrollY, 900);
-        spine.style.transform = `translate3d(0, ${(y * -0.06).toFixed(1)}px, 0)`;
+        spine.style.transform = `translate3d(0, ${(y * 0.08).toFixed(1)}px, 0)`;
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });

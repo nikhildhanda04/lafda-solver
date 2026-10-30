@@ -1,0 +1,2548 @@
+{
+ "url": "http://localhost:3200",
+ "at": "2026-10-30T09:31:11.039Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 7,
+   "filled": [
+    0.95,
+    1,
+    0.23,
+    0.47,
+    0.74,
+    0.81,
+    1
+   ],
+   "motion": {
+    "elements": 49,
+    "css": 1,
+    "transitions": 47,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 6186,
+     "screens": 6.9,
+     "words": 804,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 2,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 12,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 5,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Both sides. Then a verdict.",
+     "words": 5,
+     "chars": 27,
+     "lines": 2,
+     "size": 74.9,
+     "vw": 5.2,
+     "font": "Geist",
+     "weight": 500,
+     "tracking": -0.035,
+     "leading": 0.98,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.46,
+     "top": 120,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Both sides. Then a verdict.",
+     "words": 5,
+     "lines": 2,
+     "size": 74.9,
+     "font": "Geist"
+    },
+    "headings": [
+     {
+      "text": "Both sides. Then a verdict.",
+      "words": 5,
+      "chars": 27,
+      "lines": 2,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 120,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "How it works",
+      "words": 3,
+      "chars": 12,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Geist",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.19,
+      "top": 1091,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Then both links show the same thing.",
+      "words": 7,
+      "chars": 36,
+      "lines": 3,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.18,
+      "top": 1690,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "First you both write, blind.",
+      "words": 5,
+      "chars": 28,
+      "lines": 2,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.18,
+      "top": 1724,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Then you each lock. One way.",
+      "words": 6,
+      "chars": 28,
+      "lines": 2,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.18,
+      "top": 1724,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Then it reads both, once.",
+      "words": 5,
+      "chars": 25,
+      "lines": 2,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.18,
+      "top": 1724,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Why either of you should trust it",
+      "words": 7,
+      "chars": 33,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Geist",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.74,
+      "top": 1939,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Two accounts",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 3977,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "one plan",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.44,
+      "top": 3977,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Fair questions.",
+      "words": 2,
+      "chars": 15,
+      "lines": 2,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.24,
+      "top": 4220,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Settle it.",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 5521,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Two people, two links, one pass. No accounts, no history, no appeals.",
+      "words": 12,
+      "chars": 69,
+      "lines": 3,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.3,
+      "top": 5730,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Love Lafda Solver",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.27,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.66,
+      "top": 5938,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "Open a case",
+      "words": 3,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.33,
+      "top": 5938,
+      "tag": "a",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 14,
+     "maxLines": 3,
+     "over2Lines": 0,
+     "statements": 5,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Geist",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Geist Mono",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      13,
+      14,
+      16,
+      18,
+      28,
+      75
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Geist",
+      "size": 16,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.1
+     },
+     "measureChars": 69,
+     "max": {
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "Geist",
+      "text": "Both sides.Then a verdict."
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Geist Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.03,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f4f2",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.08,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#10131a",
+       "top": 80,
+       "hsl": {
+        "h": 222,
+        "s": 0.24,
+        "l": 0.08
+       }
+      },
+      {
+       "color": "#0a0a0a",
+       "top": 3290,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.04
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 3290,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#1d5fbf",
+       "top": 4892,
+       "hsl": {
+        "h": 216,
+        "s": 0.74,
+        "l": 0.43
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#0a0a0a",
+       "share": 0.69
+      },
+      {
+       "color": "#5f5f5f",
+       "share": 0.11
+      },
+      {
+       "color": "#6b6b6b",
+       "share": 0.05
+      },
+      {
+       "color": "#cfcfca",
+       "share": 0.05
+      },
+      {
+       "color": "#aeb6c4",
+       "share": 0.05
+      }
+     ],
+     "button": {
+      "bg": "#1d5fbf",
+      "hsl": {
+       "h": 216,
+       "s": 0.74,
+       "l": 0.43
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 6,
+     "height": 44,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Open a case"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 18,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 1063
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "svg",
+      "ratio": 0.11
+     }
+    ],
+    "nav": {
+     "links": 5,
+     "fixed": false,
+     "height": 80,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "geist",
+     "geist mono"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 6186,
+    "margins": {
+     "left": 40,
+     "right": 53
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 80,
+      "height": 983,
+      "words": 95,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Both sides.",
+       "size": 75,
+       "tag": "h1"
+      },
+      "left": 40,
+      "right": 40,
+      "textLeft": 40,
+      "textRight": 285,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#how.strip.is-in",
+      "tag": "section",
+      "top": 1063,
+      "height": 756,
+      "words": 104,
+      "media": 0,
+      "middle": 105,
+      "heading": {
+       "text": "How it works",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 40,
+      "right": 65,
+      "textLeft": 40,
+      "textRight": 65,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#fair.proofs.is-in",
+      "tag": "section",
+      "top": 1819,
+      "height": 1471,
+      "words": 262,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Why either of you should trust it",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 184,
+      "right": 558,
+      "textLeft": 184,
+      "textRight": 558,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#result.split.is-in",
+      "tag": "section",
+      "top": 3290,
+      "height": 810,
+      "words": 106,
+      "media": 0,
+      "middle": 267,
+      "heading": {
+       "text": "What to do now",
+       "size": 14,
+       "tag": "h3"
+      },
+      "left": 40,
+      "right": 217,
+      "textLeft": 40,
+      "textRight": 217,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.faq.is-in",
+      "tag": "section",
+      "top": 4100,
+      "height": 792,
+      "words": 331,
+      "media": 0,
+      "middle": 71,
+      "heading": {
+       "text": "Fair questions.",
+       "size": 75,
+       "tag": "h2"
+      },
+      "left": 184,
+      "right": 348,
+      "textLeft": 184,
+      "textRight": 348,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#open.closing.is-in",
+      "tag": "section",
+      "top": 4892,
+      "height": 810,
+      "words": 76,
+      "media": 0,
+      "middle": 381,
+      "heading": {
+       "text": "Open a case",
+       "size": 18,
+       "tag": "h3"
+      },
+      "left": 40,
+      "right": 229,
+      "textLeft": 40,
+      "textRight": 229,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-foot.is-in",
+      "tag": "footer",
+      "top": 5702,
+      "height": 484,
+      "words": 68,
+      "media": 0,
+      "middle": 94,
+      "heading": {
+       "text": "Love Lafda Solver",
+       "size": 75,
+       "tag": "span"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 53,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 1412,
+      "height": 276
+     },
+     {
+      "top": 3172,
+      "height": 312
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Both sides. Then a verdict.",
+      "size": 75,
+      "top": 120,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 564,
+      "n": 12
+     },
+     {
+      "x": 40,
+      "n": 9
+     },
+     {
+      "x": 592,
+      "n": 7
+     },
+     {
+      "x": 184,
+      "n": 2
+     },
+     {
+      "x": 760,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 31,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.14,
+    "voidBox": {
+     "x": 540,
+     "y": 120,
+     "w": 420,
+     "h": 420
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    0.95,
+    1,
+    1,
+    0.86,
+    0.54,
+    0.8,
+    0.91,
+    0.96,
+    0.93,
+    1
+   ],
+   "motion": {
+    "elements": 49,
+    "css": 1,
+    "transitions": 47,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 9221,
+     "screens": 9,
+     "words": 795,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 2,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 12,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 4,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Both sides. Then a verdict.",
+     "words": 5,
+     "chars": 27,
+     "lines": 2,
+     "size": 76.8,
+     "vw": 10,
+     "font": "Geist",
+     "weight": 500,
+     "tracking": -0.035,
+     "leading": 0.98,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.96,
+     "top": 80,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Both sides. Then a verdict.",
+     "words": 5,
+     "lines": 2,
+     "size": 76.8,
+     "font": "Geist"
+    },
+    "headings": [
+     {
+      "text": "Both sides. Then a verdict.",
+      "words": 5,
+      "chars": 27,
+      "lines": 2,
+      "size": 76.8,
+      "vw": 10,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 80,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "How it works",
+      "words": 3,
+      "chars": 12,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Geist",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 1259,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Why either of you should trust it",
+      "words": 7,
+      "chars": 33,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Geist",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 3924,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Two accounts",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 52,
+      "vw": 6.8,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 5944,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "one plan",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 52,
+      "vw": 6.8,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 6579,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Fair questions.",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 9,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 6723,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Settle it.",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 52,
+      "vw": 6.8,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 7488,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Love Lafda Solver",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 52,
+      "vw": 6.8,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.38,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.98,
+      "top": 8377,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "Open a case",
+      "words": 3,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.98,
+      "top": 8543,
+      "tag": "a",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 9,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Geist",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Geist Mono",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      13,
+      14,
+      16,
+      18,
+      22,
+      28,
+      52,
+      69,
+      77
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Geist",
+      "size": 16,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.1
+     },
+     "measureChars": 69,
+     "max": {
+      "size": 76.8,
+      "vw": 10,
+      "font": "Geist",
+      "text": "Both sides.Then a verdict."
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Geist Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f4f2",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.08,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#10131a",
+       "top": 52,
+       "hsl": {
+        "h": 222,
+        "s": 0.24,
+        "l": 0.08
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 1239,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#efefec",
+       "top": 1894,
+       "hsl": {
+        "h": 60,
+        "s": 0.09,
+        "l": 0.93
+       }
+      },
+      {
+       "color": "#e4e4e0",
+       "top": 2549,
+       "hsl": {
+        "h": 60,
+        "s": 0.07,
+        "l": 0.89
+       }
+      },
+      {
+       "color": "#0a0a0a",
+       "top": 3205,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.04
+       }
+      },
+      {
+       "color": "#1d5fbf",
+       "top": 7448,
+       "hsl": {
+        "h": 216,
+        "s": 0.74,
+        "l": 0.43
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#0a0a0a",
+       "share": 0.7
+      },
+      {
+       "color": "#5f5f5f",
+       "share": 0.1
+      },
+      {
+       "color": "#6b6b6b",
+       "share": 0.05
+      },
+      {
+       "color": "#cfcfca",
+       "share": 0.05
+      },
+      {
+       "color": "#aeb6c4",
+       "share": 0.05
+      }
+     ],
+     "button": {
+      "bg": "#1d5fbf",
+      "hsl": {
+       "h": 216,
+       "s": 0.74,
+       "l": 0.43
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 6,
+     "height": 44,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Open a case"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 17,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "svg",
+      "ratio": 0.15
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 52,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "geist",
+     "geist fallback",
+     "geist mono"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 9221,
+    "margins": {
+     "left": 16,
+     "right": 26
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 52,
+      "height": 1187,
+      "words": 95,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Both sides.",
+       "size": 77,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 23,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.field-col.f1",
+      "tag": "div",
+      "top": 1239,
+      "height": 655,
+      "words": 28,
+      "media": 0,
+      "middle": 58,
+      "heading": {
+       "text": "How it works",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 269,
+      "textLeft": 20,
+      "textRight": 269,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.field-col.f2",
+      "tag": "div",
+      "top": 1894,
+      "height": 655,
+      "words": 25,
+      "media": 0,
+      "middle": 58,
+      "heading": null,
+      "left": 20,
+      "right": 269,
+      "textLeft": 20,
+      "textRight": 269,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.field-col.f3",
+      "tag": "div",
+      "top": 2549,
+      "height": 655,
+      "words": 24,
+      "media": 0,
+      "middle": 70,
+      "heading": null,
+      "left": 20,
+      "right": 269,
+      "textLeft": 20,
+      "textRight": 269,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.field-col.f4",
+      "tag": "div",
+      "top": 3205,
+      "height": 655,
+      "words": 27,
+      "media": 0,
+      "middle": 100,
+      "heading": null,
+      "left": 20,
+      "right": 269,
+      "textLeft": 20,
+      "textRight": 269,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#fair.proofs.is-in",
+      "tag": "section",
+      "top": 3860,
+      "height": 1529,
+      "words": 262,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Why either of you should trust it",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 20,
+      "textLeft": 16,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#result.split.is-in",
+      "tag": "section",
+      "top": 5389,
+      "height": 1270,
+      "words": 106,
+      "media": 0,
+      "middle": 22,
+      "heading": {
+       "text": "Two accounts",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 285,
+      "textLeft": 20,
+      "textRight": 285,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.faq.is-in",
+      "tag": "section",
+      "top": 6659,
+      "height": 789,
+      "words": 290,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Fair questions.",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 228,
+      "textLeft": 16,
+      "textRight": 228,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#open.closing.is-in",
+      "tag": "section",
+      "top": 7448,
+      "height": 922,
+      "words": 76,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Settle it.",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 188,
+      "textLeft": 16,
+      "textRight": 188,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-foot.is-in",
+      "tag": "footer",
+      "top": 8369,
+      "height": 852,
+      "words": 68,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Love Lafda Solver",
+       "size": 52,
+       "tag": "span"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 40,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Both sides. Then a verdict.",
+      "size": 77,
+      "top": 80,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 24
+     },
+     {
+      "x": 40,
+      "n": 7
+     },
+     {
+      "x": 66,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 32,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 11,
+   "filled": [
+    0.96,
+    1,
+    1,
+    1,
+    0.66,
+    0.69,
+    0.81,
+    0.87,
+    0.96,
+    0.86,
+    0.92
+   ],
+   "motion": {
+    "elements": 49,
+    "css": 1,
+    "transitions": 47,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 8673,
+     "screens": 10.3,
+     "words": 795,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 2,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 12,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 4,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Both sides. Then a verdict.",
+     "words": 5,
+     "chars": 27,
+     "lines": 2,
+     "size": 39,
+     "vw": 10,
+     "font": "Geist",
+     "weight": 500,
+     "tracking": -0.035,
+     "leading": 0.98,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 80,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Both sides. Then a verdict.",
+     "words": 5,
+     "lines": 2,
+     "size": 39,
+     "font": "Geist"
+    },
+    "headings": [
+     {
+      "text": "Both sides. Then a verdict.",
+      "words": 5,
+      "chars": 27,
+      "lines": 2,
+      "size": 39,
+      "vw": 10,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 80,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "How it works",
+      "words": 3,
+      "chars": 12,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Geist",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1233,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "First you both write, blind.",
+      "words": 5,
+      "chars": 28,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.52,
+      "top": 1680,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Then you each lock. One way.",
+      "words": 6,
+      "chars": 28,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.52,
+      "top": 2220,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Then it reads both, once.",
+      "words": 5,
+      "chars": 25,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.52,
+      "top": 2761,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Then both links show the same thing.",
+      "words": 7,
+      "chars": 36,
+      "lines": 3,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.52,
+      "top": 3274,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Why either of you should trust it",
+      "words": 7,
+      "chars": 33,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Geist",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3438,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Two accounts",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 52,
+      "vw": 13.3,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5679,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "one plan",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 52,
+      "vw": 13.3,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 6202,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Fair questions.",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 35.1,
+      "vw": 9,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.03,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6346,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Settle it.",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 52,
+      "vw": 13.3,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7077,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Love Lafda Solver",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 52,
+      "vw": 13.3,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.38,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 7805,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "Open a case",
+      "words": 3,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Geist",
+      "weight": 500,
+      "tracking": -0.02,
+      "leading": 0.71,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 7971,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Two people, two links, one pass. No accounts, no history, no appeals.",
+      "words": 12,
+      "chars": 69,
+      "lines": 3,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Geist",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.86,
+      "top": 8157,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 14,
+     "maxLines": 3,
+     "over2Lines": 0,
+     "statements": 5,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Geist",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Geist Mono",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      13,
+      14,
+      16,
+      18,
+      22,
+      28,
+      35,
+      39,
+      52
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Geist",
+      "size": 16,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.1
+     },
+     "measureChars": 45,
+     "max": {
+      "size": 52,
+      "vw": 13.3,
+      "font": "Geist",
+      "text": "Two accounts"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Geist Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f4f2",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.08,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#10131a",
+       "top": 52,
+       "hsl": {
+        "h": 222,
+        "s": 0.24,
+        "l": 0.08
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 667,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#efefec",
+       "top": 1753,
+       "hsl": {
+        "h": 60,
+        "s": 0.09,
+        "l": 0.93
+       }
+      },
+      {
+       "color": "#e4e4e0",
+       "top": 2293,
+       "hsl": {
+        "h": 60,
+        "s": 0.07,
+        "l": 0.89
+       }
+      },
+      {
+       "color": "#0a0a0a",
+       "top": 2833,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.04
+       }
+      },
+      {
+       "color": "#1d5fbf",
+       "top": 7037,
+       "hsl": {
+        "h": 216,
+        "s": 0.74,
+        "l": 0.43
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#0a0a0a",
+       "share": 0.7
+      },
+      {
+       "color": "#5f5f5f",
+       "share": 0.1
+      },
+      {
+       "color": "#6b6b6b",
+       "share": 0.05
+      },
+      {
+       "color": "#cfcfca",
+       "share": 0.05
+      },
+      {
+       "color": "#aeb6c4",
+       "share": 0.05
+      }
+     ],
+     "button": {
+      "bg": "#1d5fbf",
+      "hsl": {
+       "h": 216,
+       "s": 0.74,
+       "l": 0.43
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 6,
+     "height": 44,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Open a case"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 18,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "svg",
+      "ratio": 0.29
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 52,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "geist",
+     "geist mono"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 8673,
+    "margins": {
+     "left": 16,
+     "right": 19
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 52,
+      "height": 1161,
+      "words": 95,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Both sides.",
+       "size": 39,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.field-col.f1",
+      "tag": "div",
+      "top": 1213,
+      "height": 540,
+      "words": 28,
+      "media": 0,
+      "middle": 36,
+      "heading": {
+       "text": "How it works",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 80,
+      "textLeft": 20,
+      "textRight": 80,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.field-col.f2",
+      "tag": "div",
+      "top": 1753,
+      "height": 540,
+      "words": 25,
+      "media": 0,
+      "middle": 35,
+      "heading": {
+       "text": "Then you each lock. One way.",
+       "size": 22,
+       "tag": "p"
+      },
+      "left": 20,
+      "right": 80,
+      "textLeft": 20,
+      "textRight": 80,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.field-col.f3",
+      "tag": "div",
+      "top": 2293,
+      "height": 540,
+      "words": 24,
+      "media": 0,
+      "middle": 30,
+      "heading": {
+       "text": "Then it reads both, once.",
+       "size": 22,
+       "tag": "p"
+      },
+      "left": 20,
+      "right": 80,
+      "textLeft": 20,
+      "textRight": 80,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.field-col.f4",
+      "tag": "div",
+      "top": 2833,
+      "height": 540,
+      "words": 27,
+      "media": 0,
+      "middle": 30,
+      "heading": {
+       "text": "Then both links show the same thing.",
+       "size": 22,
+       "tag": "p"
+      },
+      "left": 20,
+      "right": 80,
+      "textLeft": 20,
+      "textRight": 80,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.proof.is-in",
+      "tag": "div",
+      "top": 3542,
+      "height": 377,
+      "words": 60,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Their side is sealed, not hidden",
+       "size": 18,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 20,
+      "textLeft": 16,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.proof.is-in",
+      "tag": "div",
+      "top": 3983,
+      "height": 301,
+      "words": 60,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "The mediator never learns your name",
+       "size": 18,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 28,
+      "textLeft": 16,
+      "textRight": 28,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.proof.is-in",
+      "tag": "div",
+      "top": 4348,
+      "height": 437,
+      "words": 69,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Five tests it has to pass",
+       "size": 18,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 17,
+      "textLeft": 16,
+      "textRight": 17,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.proof.is-in",
+      "tag": "div",
+      "top": 4849,
+      "height": 323,
+      "words": 66,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "It knows when to refuse",
+       "size": 18,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 23,
+      "textLeft": 16,
+      "textRight": 23,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#result.split.is-in",
+      "tag": "section",
+      "top": 5236,
+      "height": 1047,
+      "words": 106,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Two accounts",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 25,
+      "textLeft": 20,
+      "textRight": 25,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.faq.is-in",
+      "tag": "section",
+      "top": 6282,
+      "height": 755,
+      "words": 290,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Fair questions.",
+       "size": 35,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 45,
+      "textLeft": 16,
+      "textRight": 45,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#open.closing.is-in",
+      "tag": "section",
+      "top": 7037,
+      "height": 760,
+      "words": 76,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Settle it.",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 40,
+      "textLeft": 16,
+      "textRight": 41,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site-foot.is-in",
+      "tag": "footer",
+      "top": 7797,
+      "height": 876,
+      "words": 68,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Love Lafda Solver",
+       "size": 52,
+       "tag": "span"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 37,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Both sides. Then a verdict.",
+      "size": 39,
+      "top": 80,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 25
+     },
+     {
+      "x": 40,
+      "n": 7
+     }
+    ],
+    "leftBlocks": 32,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "no-real-pictures",
+   "width": 1440,
+   "message": "Only 0 real photograph(s) or clip(s); the rest are interface fragments.",
+   "fix": "Add two or more real pictures of the customer's world from scripts/assets.mjs, not stock of people at laptops."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/desktop-fold.jpg",
+   "pages": [
+    "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/desktop-page-01.jpg",
+    "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/tablet-fold.jpg",
+   "pages": [
+    "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/tablet-page-01.jpg",
+    "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/mobile-fold.jpg",
+   "pages": [
+    "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/mobile-page-01.jpg",
+    "/Users/nikhildhanda/Desktop/everything/projects/love-lafda-solver/.taste-skill/inspect/mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}
