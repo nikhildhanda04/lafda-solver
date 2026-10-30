@@ -6,6 +6,7 @@ import { prisma } from "../lib/db";
 import { resetProvider, setProvider } from "../lib/judge/provider";
 import { mockJudge } from "../lib/judge/mock";
 import { bedrockJudge } from "../lib/judge/bedrock";
+import { geminiJudge } from "../lib/judge/gemini";
 import { buildUserMessage, SYSTEM_PROMPT } from "../lib/judge/prompt";
 import { claimJudging, runJudge } from "../lib/judge";
 import { hashToken, newToken } from "../lib/tokens";
@@ -17,12 +18,21 @@ import type { JudgeResult } from "../lib/judge/schema";
  * because treating party text as data is a property of our own prompt builder
  * rather than of whichever model is configured.
  */
-const hasCredentials =
+const hasAwsCredentials =
   !!process.env.AWS_ACCESS_KEY_ID ||
+  !!process.env.AWS_BEARER_TOKEN_BEDROCK ||
   !!process.env.AWS_PROFILE ||
   existsSync(`${homedir()}/.aws/credentials`);
-const live = !!process.env.BEDROCK_MODEL_ID && hasCredentials;
-const skip = live ? false : "needs BEDROCK_MODEL_ID and AWS credentials";
+
+// Whichever real mediator is configured, resolved the way lib/judge/provider
+// resolves it, so these run against the model a visitor would actually get.
+const liveJudge = process.env.GEMINI_API_KEY
+  ? geminiJudge
+  : process.env.BEDROCK_MODEL_ID && hasAwsCredentials
+    ? bedrockJudge
+    : null;
+const live = liveJudge !== null;
+const skip = live ? false : "needs GEMINI_API_KEY, or BEDROCK_MODEL_ID with AWS credentials";
 
 type Side = { opening: string; context: string; proposal: string; evidence: string };
 
@@ -109,7 +119,7 @@ const angry = (s: Side): Side => ({
 beforeEach(async () => {
   await prisma.case.deleteMany();
   resetProvider();
-  if (live) setProvider(bedrockJudge);
+  if (liveJudge) setProvider(liveJudge);
 });
 afterEach(() => resetProvider());
 

@@ -8,6 +8,10 @@ const Env = z.object({
   // in the Bedrock console before enabling (see docs/mvp-plan.md, AI judge).
   BEDROCK_MODEL_ID: z.preprocess(empty, z.string().optional()),
   AWS_REGION: z.preprocess(empty, z.string().default("us-east-1")),
+  // The other way to reach a real mediator. If this is set it wins over
+  // Bedrock, because it is the one a developer sets deliberately and last.
+  GEMINI_API_KEY: z.preprocess(empty, z.string().optional()),
+  GEMINI_MODEL_ID: z.preprocess(empty, z.string().default("gemini-2.5-flash")),
 });
 
 export type Env = z.infer<typeof Env>;

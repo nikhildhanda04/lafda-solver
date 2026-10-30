@@ -1,10 +1,12 @@
 /**
- * One real Bedrock call, end to end, with the credentials and model you have
- * configured. Run it before trusting a deploy: `npm run judge:check`.
+ * One real call to whichever mediator is configured, end to end. Run it before
+ * trusting a deploy: `npm run judge:check`.
+ *
+ * It resolves the provider the same way the app does, so what it exercises is
+ * what a visitor would get, rather than a second code path that can drift.
  */
-import { BedrockRuntimeClient } from "@aws-sdk/client-bedrock-runtime";
 import { env } from "../lib/env";
-import { makeBedrockJudge } from "../lib/judge/bedrock";
+import { getProvider } from "../lib/judge/provider";
 import type { JudgeInput } from "../lib/judge/schema";
 
 const CASE: JudgeInput = {
@@ -27,20 +29,26 @@ const CASE: JudgeInput = {
 };
 
 async function main() {
-  if (!env.BEDROCK_MODEL_ID) {
-    console.error("BEDROCK_MODEL_ID is not set in .env, so there is nothing to check.");
+  const gemini = !!env.GEMINI_API_KEY;
+  const bedrock = !!env.BEDROCK_MODEL_ID;
+
+  if (!gemini && !bedrock) {
+    console.error(
+      "Neither GEMINI_API_KEY nor BEDROCK_MODEL_ID is set, so the mock judge would answer\n" +
+        "and there is nothing real to check.",
+    );
     process.exit(1);
   }
 
-  console.log(`model:  ${env.BEDROCK_MODEL_ID}`);
-  console.log(`region: ${env.AWS_REGION}`);
-  console.log("calling Bedrock...\n");
+  const name = gemini ? "gemini" : "bedrock";
+  const model = gemini ? env.GEMINI_MODEL_ID : env.BEDROCK_MODEL_ID;
+  console.log(`provider: ${name}` + (gemini && bedrock ? "  (Bedrock is also configured and is not being used)" : ""));
+  console.log(`model:    ${model}`);
+  if (!gemini) console.log(`region:   ${env.AWS_REGION}`);
+  console.log("calling the mediator...\n");
 
   const started = Date.now();
-  const judge = makeBedrockJudge({
-    client: new BedrockRuntimeClient({ region: env.AWS_REGION }),
-    modelId: env.BEDROCK_MODEL_ID,
-  });
+  const judge = await getProvider();
 
   try {
     const { result, inputTokens, outputTokens } = await judge(CASE);
@@ -56,16 +64,28 @@ async function main() {
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error(`FAILED: ${message}\n`);
-    if (/could not load credentials|CredentialsProviderError/i.test(message)) {
+    if (/HTTP 400/.test(message) && /API_KEY/i.test(message)) {
+      console.error("GEMINI_API_KEY is not accepted. Check it was pasted without quotes.");
+    } else if (/HTTP 429/.test(message)) {
+      console.error("Rate limited or out of quota on this Gemini key.");
+    } else if (/HTTP 404/.test(message)) {
+      console.error(`No such Gemini model as "${env.GEMINI_MODEL_ID}". Set GEMINI_MODEL_ID to one that exists.`);
+    } else if (/could not load credentials|CredentialsProviderError/i.test(message)) {
       console.error("No AWS credentials found. Set AWS_BEARER_TOKEN_BEDROCK, or create ~/.aws/credentials (see DEPLOY.md).");
     } else if (/account is currently being verified/i.test(message)) {
       console.error("The credentials and the model id are fine; AWS has not finished verifying this account yet. Nothing to fix here, run this again later.");
+    } else if (/Operation not allowed/i.test(message)) {
+      console.error(
+        "Bedrock refused the principal. If GET /foundation-model-availability/<id> reports\n" +
+          "entitlementAvailability AVAILABLE but authorizationStatus NOT_AUTHORIZED even for root,\n" +
+          "it is an account-level restriction and only AWS Support can clear it.",
+      );
     } else if (/AccessDenied|not authorized/i.test(message)) {
       console.error("Credentials work, but this principal lacks bedrock:InvokeModel on that model ARN.");
-    } else if (/don't have access to the model|ValidationException.*model/i.test(message)) {
-      console.error(`The model is not enabled in ${env.AWS_REGION}. Bedrock console -> Model access.`);
+    } else if (/on-demand throughput isn/i.test(message)) {
+      console.error("That model is inference-profile only. Use the profile id, e.g. global.amazon.nova-2-lite-v1:0.");
     } else if (/right shape/i.test(message)) {
-      console.error("The model answered but not in the required shape. It may not support tool use well.");
+      console.error("The model answered but not in the required shape. It may not support structured output well.");
     }
     process.exit(1);
   }

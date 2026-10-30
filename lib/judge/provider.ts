@@ -12,13 +12,22 @@ export const resetProvider = () => {
 };
 
 /**
- * Without BEDROCK_MODEL_ID there is nothing to call, so the mock answers.
- * Task 7 registers the real Bedrock provider here.
+ * Whichever real mediator is configured, else the mock.
+ *
+ * Gemini is checked first: both can be configured at once, and the one a
+ * developer added most recently is the one they mean. Each provider is
+ * imported only when it is chosen, so an unconfigured SDK is never loaded.
  */
 export async function getProvider(): Promise<JudgeProvider> {
   if (current) return current;
   const { env } = await import("../env");
-  if (!env.BEDROCK_MODEL_ID) return mockJudge;
-  const { bedrockJudge } = await import("./bedrock");
-  return bedrockJudge;
+  if (env.GEMINI_API_KEY) {
+    const { geminiJudge } = await import("./gemini");
+    return geminiJudge;
+  }
+  if (env.BEDROCK_MODEL_ID) {
+    const { bedrockJudge } = await import("./bedrock");
+    return bedrockJudge;
+  }
+  return mockJudge;
 }
