@@ -42,7 +42,7 @@ const echo = () =>
       needs_of_each: { a: [input.personA.opening], b: [input.personB.opening] },
       common_ground: ["x"],
       proposed_resolution: [{ step: "x", who: "BOTH" }],
-      fault_view: { stated: true, text: "x", confidence: "low" },
+      fault_view: { stated: true, at_fault: "NEITHER", a: "", b: "", text: "x", confidence: "low" },
       caveats: [],
       safety_flag: "none",
     },

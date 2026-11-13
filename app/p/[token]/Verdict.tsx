@@ -2,7 +2,8 @@ import { STEPS } from "@/lib/steps";
 import type { Kind } from "@/lib/party";
 
 type Statement = { body: string; links: string[] };
-type Fault = { stated: boolean; text: string; confidence: "low" | "medium" | "high" };
+// a and b are missing on verdicts stored before the per-person ruling existed.
+type Fault = { stated: boolean; a?: string; b?: string; text: string; confidence: "low" | "medium" | "high" };
 
 export type VerdictData =
   | { safety_flag: "possible_abuse" | "self_harm"; help: string }
@@ -43,6 +44,8 @@ export default function Verdict({
   }
 
   const v = verdict;
+  // The mediator only knows Person A / Person B; the page knows their names.
+  const named = (t: string) => t.replace(/\bPerson ([AB])\b/g, (_, s: "A" | "B") => v.names[s]);
   const who = (w: "A" | "B" | "BOTH") => (w === "BOTH" ? "Both of you" : v.names[w]);
   const themName = yourSlot === "A" ? v.names.B : v.names.A;
   const youName = yourSlot === "A" ? v.names.A : v.names.B;
@@ -58,7 +61,12 @@ export default function Verdict({
             <span className="pill">Confidence: {v.fault_view.confidence}</span>
           </header>
           <div className="ruling-row">
-            <p className="ruling">{v.fault_view.text}</p>
+            <div>
+              {[v.fault_view.a, v.fault_view.b].filter(Boolean).map((line, i) => (
+                <p className="ruling" key={i}>{named(line!)}</p>
+              ))}
+              <p className={v.fault_view.a ? "lede" : "ruling"}>{named(v.fault_view.text)}</p>
+            </div>
             <p className="hint ruling-note">
               This is a reading of the two accounts, not a finding of fact, and nothing about it
               is binding. It is here to be argued with.

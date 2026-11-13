@@ -92,14 +92,8 @@ async function judgeCase(
 
 /** Who the verdict blames: A, B, both, or nobody. */
 function faultSide(v: JudgeResult): "A" | "B" | "BOTH" | "NONE" {
-  if (!v.fault_view.stated) return "NONE";
-  const t = v.fault_view.text.toLowerCase();
-  const a = t.includes("person a") || t.includes("aarav");
-  const b = t.includes("person b") || t.includes("bela");
-  if (a && b) return "BOTH";
-  if (a) return "A";
-  if (b) return "B";
-  return "NONE";
+  if (!v.fault_view.stated || v.fault_view.at_fault === "NEITHER") return "NONE";
+  return v.fault_view.at_fault;
 }
 
 const pad = (s: Side): Side => ({

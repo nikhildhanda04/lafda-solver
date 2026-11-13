@@ -43,10 +43,13 @@ export async function mockJudge(input: JudgeInput) {
       input.mode === "COMMON_GROUND_AND_VERDICT"
         ? {
             stated: false,
+            at_fault: "NEITHER",
+            a: "",
+            b: "",
             text: "Neither account is clearly at fault on what is written here. One of you acted on a plan you believed was agreed; the other left for a reason most people would. What is missing is anything showing the date was actually confirmed between you.",
             confidence: "low",
           }
-        : { stated: false, text: "", confidence: "low" },
+        : { stated: false, at_fault: "NEITHER", a: "", b: "", text: "", confidence: "low" },
     caveats: [
       "This is a stand-in mediator running without a model, so it reads both sides only shallowly.",
       "It has not seen anything behind the links either of you gave.",

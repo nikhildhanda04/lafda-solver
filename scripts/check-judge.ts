@@ -58,7 +58,7 @@ async function main() {
     console.log(`Summary: ${result.summary_neutral}\n`);
     console.log("Resolution:");
     result.proposed_resolution.forEach((s, i) => console.log(`  ${i + 1}. [${s.who}] ${s.step}`));
-    console.log(`\nFault stated: ${result.fault_view.stated}` + (result.fault_view.stated ? ` (${result.fault_view.confidence})` : ""));
+    console.log(`\nFault stated: ${result.fault_view.stated}` + (result.fault_view.stated ? ` (${result.fault_view.confidence})\n  ${result.fault_view.a}\n  ${result.fault_view.b}` : ""));
     console.log(`Safety flag: ${result.safety_flag}`);
     console.log("\nThe judge is wired up correctly.");
   } catch (err) {

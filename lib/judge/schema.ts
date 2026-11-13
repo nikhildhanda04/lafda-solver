@@ -15,6 +15,10 @@ export const JudgeResult = z.object({
     .min(1),
   fault_view: z.object({
     stated: z.boolean(),
+    at_fault: z.enum(["A", "B", "BOTH", "NEITHER"]),
+    // One sentence each: "Person A is right because..." / "Person B is wrong because...".
+    a: z.string(),
+    b: z.string(),
     text: z.string(),
     confidence: z.enum(["low", "medium", "high"]),
   }),

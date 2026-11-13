@@ -114,7 +114,7 @@ test("both links show the same verdict, and each side's own text is returned onc
 });
 
 test("fault_view is withheld in COMMON_GROUND mode even when the judge states one", async () => {
-  withFault({ fault_view: { stated: true, text: "Person 1 was wrong.", confidence: "high" } });
+  withFault({ fault_view: { stated: true, at_fault: "A", a: "", b: "", text: "Person 1 was wrong.", confidence: "high" } });
   const { a, b } = await makeCase("COMMON_GROUND");
   await lock(a);
   await lock(b);
@@ -125,7 +125,7 @@ test("fault_view is withheld in COMMON_GROUND mode even when the judge states on
 });
 
 test("fault_view is passed through in verdict mode when the judge states one", async () => {
-  withFault({ fault_view: { stated: true, text: "Person 1 moved the date without saying so.", confidence: "medium" } });
+  withFault({ fault_view: { stated: true, at_fault: "A", a: "", b: "", text: "Person 1 moved the date without saying so.", confidence: "medium" } });
   const { a, b } = await makeCase("COMMON_GROUND_AND_VERDICT");
   await lock(a);
   await lock(b);

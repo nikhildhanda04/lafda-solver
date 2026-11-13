@@ -222,5 +222,6 @@ textarea.input { height: auto; min-height: 120px; padding: 12px; resize: vertica
 .verdict-ruling { grid-column: 1 / -1; }
 .verdict-ruling .ruling-row { display: grid; grid-template-columns: minmax(0, 58ch) minmax(0, 1fr); gap: 40px; align-items: start; }
 .verdict-ruling .ruling { font-size: 17px; line-height: 26px; }
+.verdict-ruling .ruling + p { margin-top: 12px; }
 .verdict-ruling .ruling-note { max-width: 34ch; }
 @media (max-width: 860px) { .verdict-ruling .ruling-row { grid-template-columns: 1fr; gap: 16px; } }
