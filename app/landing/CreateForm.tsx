@@ -4,13 +4,15 @@ import { useState } from "react";
 import { MODE_LABEL, MODE_MEANS } from "@/lib/steps";
 
 type Mode = keyof typeof MODE_LABEL;
-type Created = { caseId: string; links: { a: string; b: string } };
+type Created = { caseId: string; links: { a: string; b: string }; theirName: string };
 
 /** The product's real create form, at true size. Not a picture of one. */
 export default function CreateForm() {
   // The blueprint asks for a believable, editable example rather than an empty
   // field, so the page's one action is live the moment you reach it.
   const [title, setTitle] = useState("The cancelled weekend trip");
+  const [yourName, setYourName] = useState("");
+  const [theirName, setTheirName] = useState("");
   const [mode, setMode] = useState<Mode>("COMMON_GROUND");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,10 +26,10 @@ export default function CreateForm() {
       const res = await fetch("/api/cases", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ title: title.trim(), mode }),
+        body: JSON.stringify({ title: title.trim(), mode, yourName, theirName }),
       });
       if (!res.ok) throw new Error((await res.json()).error ?? "Could not open the case.");
-      setCreated(await res.json());
+      setCreated({ ...(await res.json()), theirName: theirName.trim() });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not open the case.");
     } finally {
@@ -54,6 +56,21 @@ export default function CreateForm() {
         />
         <p className="hint">Both of you see this, so keep it neutral.</p>
       </div>
+
+      <fieldset className="field">
+        <legend>Who is it between?</legend>
+        <div className="names">
+          <div className="field">
+            <label htmlFor="your-name">Your name</label>
+            <input id="your-name" className="input" value={yourName} onChange={(e) => setYourName(e.target.value)} maxLength={40} placeholder="Optional" autoComplete="given-name" />
+          </div>
+          <div className="field">
+            <label htmlFor="their-name">Their name</label>
+            <input id="their-name" className="input" value={theirName} onChange={(e) => setTheirName(e.target.value)} maxLength={40} placeholder="Optional" autoComplete="off" />
+          </div>
+        </div>
+        <p className="hint">Both of you see these. The mediator never does.</p>
+      </fieldset>
 
       <fieldset className="field">
         <legend>How far should the mediator go?</legend>
@@ -89,7 +106,7 @@ function Links({ created }: { created: Created }) {
         side. There is no way to recover a lost link.
       </p>
       <LinkRow label="Yours" url={origin + created.links.a} />
-      <LinkRow label="Theirs" url={origin + created.links.b} />
+      <LinkRow label={created.theirName ? `${created.theirName}’s` : "Theirs"} url={origin + created.links.b} />
       <a className="btn primary" href={created.links.a}>Start writing your side</a>
     </div>
   );

@@ -85,3 +85,19 @@ test("malformed JSON is rejected with 400", async () => {
   }));
   assert.equal(res.status, 400);
 });
+
+test("names given at creation label each side; blank ones stay unnamed", async () => {
+  const named = await (await post({ title: "Rent", yourName: "  Aarav ", theirName: "Bela" })).json();
+  const unnamed = await (await post({ title: "Dishes", yourName: "   " })).json();
+
+  const parties = await prisma.party.findMany({ where: { caseId: { in: [named.caseId, unnamed.caseId] } } });
+  const name = (caseId: string, slot: string) => parties.find((p) => p.caseId === caseId && p.slot === slot)?.displayName;
+
+  assert.equal(name(named.caseId, "A"), "Aarav", "the opener's name goes on their own side, trimmed");
+  assert.equal(name(named.caseId, "B"), "Bela");
+  assert.equal(name(unnamed.caseId, "A"), null, "a blank name is no name");
+  assert.equal(name(unnamed.caseId, "B"), null);
+
+  const tooLong = await post({ title: "Rent", theirName: "x".repeat(41) });
+  assert.equal(tooLong.status, 400);
+});
