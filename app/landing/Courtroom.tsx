@@ -120,11 +120,11 @@ export default function Courtroom() {
       <g className="scene">
         <g className="clawd"><g className="clawd-idle">
           <Sprite rows={CLAWD} col={1} row={0} fill="var(--clawd)" />
-          <Sprite rows={EYE} col={7} row={6} fill="var(--court)" />
-          <Sprite rows={EYE} col={17} row={6} fill="var(--court)" />
-          <Sprite rows={ROBE} col={5} row={10} fill="var(--robe-red)" />
+          <Sprite rows={EYE} col={7} row={6} fill="var(--clawd-eye)" />
+          <Sprite rows={EYE} col={17} row={6} fill="var(--clawd-eye)" />
+          <Sprite rows={ROBE} col={5} row={10} fill="var(--robe)" />
           <Sprite rows={FOLD} col={5} row={12} fill="var(--robe-fold)" />
-          <Sprite rows={CLASP} col={19} row={10} fill="var(--gold)" />
+          <Sprite rows={CLASP} col={19} row={10} fill="var(--clasp)" />
           <Sprite rows={BAND} col={4} row={3} fill="var(--band)" />
           <Sprite rows={KNOT} col={22} row={2} fill="var(--band)" />
         </g></g>

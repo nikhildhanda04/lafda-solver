@@ -1,29 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import Courtroom from "./Courtroom";
 
 const PLACEHOLDER = "She cancelled the trip the night before, after I had already paid.";
 
 /**
- * The hero's body: Clawd standing, and underneath it the two sides of a real
- * case, side by side.
+ * The versus screen: your side beside theirs, a real case's first step.
  *
  * The live thing is the sealed panel. Trying to read the other side is the
  * one move a visitor will want to make, and the page lets them make it and
  * then says no, which is the product's only structural rule demonstrated
  * rather than asserted.
  */
-export default function HeroCourt() {
+export default function HeroSpine() {
   const [body, setBody] = useState("");
   const [peeked, setPeeked] = useState(false);
 
   return (
     <div className="court-stage">
-      <Courtroom />
-
       <div className="sides">
-        <section className="panel demo-write" data-ui>
+        <section className="side side--you" data-ui>
           <header>
             <h3>Your side</h3>
             <span className="meta">{body ? "Saved" : "Step 1 of 5"}</span>
@@ -44,21 +40,23 @@ export default function HeroCourt() {
           </div>
         </section>
 
+        <p className="vs display" aria-hidden="true">vs</p>
+
         <button
           type="button"
-          className={`panel demo-sealed${peeked ? " peeked" : ""}`}
+          className={`side side--them${peeked ? " peeked" : ""}`}
           data-ui
           onClick={() => setPeeked(true)}
           aria-label="Try to read the other person's side"
         >
           <span className="demo-sealed-head">
             <span className="h">Their side</span>
-            <span className="pill">Writing</span>
+            <span className="tag">{peeked ? "Sealed" : "Writing"}</span>
           </span>
           <span className="demo-sealed-body">
             {peeked
               ? "No. Not until you have both locked. That is the only reason either of you can trust what the other one wrote."
-              : "They are answering the same five steps right now. Try to read it."}
+              : "They are answering the same five steps right now. Tap to read it."}
           </span>
         </button>
       </div>

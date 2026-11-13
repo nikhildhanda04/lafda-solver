@@ -73,7 +73,7 @@ export default function CreateForm() {
       {error && <p role="alert" className="err">{error}</p>}
 
       <button className="btn primary" type="submit" disabled={saving || !title.trim()}>
-        {saving ? "Opening…" : "Open the case and get two links"}
+        {saving ? "Opening…" : "Get two links"}
       </button>
     </form>
   );

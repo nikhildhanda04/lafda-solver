@@ -53,7 +53,7 @@ export const MODE_MEANS = {
   COMMON_GROUND:
     "The mediator will find what you already agree on and propose a resolution. It will not say who was right.",
   COMMON_GROUND_AND_VERDICT:
-    "The mediator will find common ground and propose a resolution, and it may also say who was right, but only where the evidence clearly supports it.",
+    "The mediator will find common ground, propose a resolution, and say who was right and who was wrong, and why.",
 } as const;
 
 /**

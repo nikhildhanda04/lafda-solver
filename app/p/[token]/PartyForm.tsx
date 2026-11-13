@@ -5,6 +5,7 @@ import { MAX_BODY, MAX_LINKS, MODE_LABEL, MODE_MEANS, STEPS, STEP_COUNT, appende
 import type { Kind } from "@/lib/party";
 import Verdict, { type VerdictData } from "./Verdict";
 import Dictate from "./Dictate";
+import Splash from "./Splash";
 
 type Statement = { body: string; links: string[] };
 export type PartyView = {
@@ -20,6 +21,11 @@ const them = (v: PartyView) => v.other.displayName ?? "The other person";
 export default function PartyForm({ token, initial }: { token: string; initial: PartyView }) {
   const [view, setView] = useState(initial);
   const [step, setStep] = useState(0);
+  const [splash, setSplash] = useState(true);
+  const endSplash = useCallback(() => setSplash(false), []);
+  // Which way the last step change went, so the next panel slides in from that side.
+  const [dir, setDir] = useState<"fwd" | "back">("fwd");
+  const [justLocked, setJustLocked] = useState(false);
 
   // The step lives in the hash, so a refresh keeps your place and every state has an address.
   useEffect(() => {
@@ -75,6 +81,7 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
       clearTimeout(timers.current[current.kind]);
       save(current.kind, draft[current.kind]);
     }
+    setDir(next < step ? "back" : "fwd");
     setStep(next);
     history.replaceState(null, "", `#step=${next + 1}`);
   };
@@ -114,6 +121,7 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
     try {
       const res = await fetch(`/api/p/${token}/lock`, { method: "POST" });
       if (!res.ok) throw new Error((await res.json()).error ?? "Could not lock.");
+      setJustLocked(true);
       const res2 = await fetch(`/api/p/${token}`);
       if (res2.ok) setView(await res2.json());
     } catch (err) {
@@ -125,10 +133,18 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
 
   const written = STEPS.filter((s) => draft[s.kind].body.trim().length > 0).length;
 
+  // Every state opens the same way: the splash, then the case warps out of its O.
+  const frame = (children: React.ReactNode) => (
+    <div className="party-shell">
+      {splash && <Splash onDone={endSplash} />}
+      {children}
+    </div>
+  );
+
   if (view.case.status === "DECIDED" && view.verdict) {
-    return (
+    return frame(
       <main className="canvas">
-        <div className="title-row">
+        <div className="case-head">
           <div>
             <h1>{view.case.title}</h1>
             <p className="sub">
@@ -156,9 +172,9 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
   }
 
   if (view.case.status === "FAILED") {
-    return (
+    return frame(
       <main className="canvas">
-        <div className="title-row">
+        <div className="case-head">
           <div>
             <h1>{view.case.title}</h1>
             <p className="sub">
@@ -238,7 +254,7 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
               tool and this one will say so rather than take a side; please talk to someone who can
               actually help.
             </p>
-            {error && <p role="alert" style={{ marginTop: 12, color: "#c4242a" }}>{error}</p>}
+            {error && <p role="alert" className="err" style={{ marginTop: 12 }}>{error}</p>}
             <div className="actions">
               <button className="btn primary" onClick={retry} disabled={locking}>
                 {locking ? "Running it again\u2026" : "Run the mediator again"}
@@ -251,9 +267,11 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
     );
   }
 
-  return (
-    <main className="canvas">
-      <div className="title-row">
+  const otherState = view.other.locked ? "Locked" : "Writing";
+
+  return frame(
+    <main className="canvas writing">
+      <div className="case-head">
         <div>
           <h1>{view.case.title}</h1>
           <p className="sub">
@@ -262,128 +280,130 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
               : `Your side only. ${them(view)} cannot see any of this until you have both locked. ${MODE_MEANS[view.case.mode]}`}
           </p>
         </div>
-        <span className="stamp num">
-          {locked ? MODE_LABEL[view.case.mode] : `Step ${step + 1} of ${STEP_COUNT}`}
-        </span>
+        <div className="meter" role="img" aria-label={`${written} of ${STEPS.length} steps written`}>
+          <span className="meter-cells" aria-hidden="true">
+            {STEPS.map((s) => (
+              <span key={s.kind} className={draft[s.kind].body.trim() ? "on" : undefined} />
+            ))}
+          </span>
+          <span className="meter-label">{locked ? MODE_LABEL[view.case.mode] : `Step ${Math.min(step + 1, STEP_COUNT)} of ${STEP_COUNT}`}</span>
+        </div>
       </div>
+
+      {/* The versus strip: the only things either of you can know about the other. */}
+      <section className="players" aria-label="The two sides">
+        <div className="player player--you">
+          <h2>You</h2>
+          <span className="pill">{locked ? "Locked" : "Open"}</span>
+          <p>{written} of {STEPS.length} steps written. Only you can see them.</p>
+        </div>
+        <p className="players-vs" aria-hidden="true">v.</p>
+        <div className={`player player--them${view.other.locked ? " is-locked" : " is-writing"}`}>
+          <h2>{them(view)}</h2>
+          <span className="pill">{otherState}</span>
+          <p>
+            {view.other.locked
+              ? `${them(view)} has finished and locked. Their answers stay sealed until you lock too.`
+              : `${them(view)} is answering the same five steps right now. You will not see a line of it before you have both locked, and they cannot see yours.`}
+          </p>
+        </div>
+      </section>
 
       <div className="spine">
         <div className="rail">
           <section className="panel">
             <header>
-              <h2>The two sides</h2>
+              <h2>Your five steps</h2>
               <span className="meta num">{written} of {STEPS.length} written</span>
             </header>
-            <div className="sides">
-              <section>
-                <header>
-                  <h3>Your side</h3>
-                  <span className="pill">{locked ? "Locked" : "Open"}</span>
-                </header>
-                <div className="steps">
-                  {STEPS.map((s, i) => {
-                    const body = draft[s.kind].body.trim();
-                    return (
-                      <button
-                        key={s.kind}
-                        type="button"
-                        className="step"
-                        aria-current={!locked && step === i ? "step" : undefined}
-                        disabled={locked}
-                        onClick={() => goto(i)}
-                      >
-                        <span className="n num">{i + 1}</span>
-                        <span className="name">{s.name}</span>
-                        <span className="state">
-                          {body ? (savedAt[s.kind] === false ? "saving…" : "saved") : "empty"}
-                        </span>
-                      </button>
-                    );
-                  })}
+            <div className="steps">
+              {STEPS.map((s, i) => {
+                const body = draft[s.kind].body.trim();
+                return (
                   <button
+                    key={s.kind}
                     type="button"
                     className="step"
-                    aria-current={!locked && reviewing ? "step" : undefined}
+                    aria-current={!locked && step === i ? "step" : undefined}
                     disabled={locked}
-                    onClick={() => goto(STEPS.length)}
+                    onClick={() => goto(i)}
                   >
-                    <span className="n num">5</span>
-                    <span className="name">Review and lock</span>
-                    <span className="state">{locked ? "locked" : "not yet"}</span>
+                    <span className="n num">{i + 1}</span>
+                    <span className="name">{s.name}</span>
+                    <span className="state">
+                      {body ? (savedAt[s.kind] === false ? "saving…" : "saved") : "empty"}
+                    </span>
                   </button>
-                </div>
-              </section>
-
-              <section>
-                <header>
-                  <h3>{them(view)}&rsquo;s side</h3>
-                  <span className="pill">{view.other.locked ? "Locked" : "Writing"}</span>
-                </header>
-                <div className="withheld">
-                  <p>
-                    {view.other.locked
-                      ? `${them(view)} has finished and locked. Their answers stay sealed until you lock too.`
-                      : `${them(view)} is answering the same five steps right now. You will not see a line of it before you have both locked, and they cannot see yours.`}
-                  </p>
-                </div>
-              </section>
-
-              <section>
-                <header>
-                  <h3>When you both lock</h3>
-                </header>
-                <p className="hint">
-                  The mediator reads both accounts once and both links show the same result.
-                  Common ground and a resolution come back either way.
-                  {view.case.mode === "COMMON_GROUND_AND_VERDICT"
-                    ? " A view on who was right comes back only where the evidence clearly supports one."
-                    : " Nobody is told they were wrong: this case is common ground only."}
-                </p>
-                <p className="safety" style={{ marginTop: 14 }}>
-                  <b>Not for abuse or safety.</b> If what you are writing about involves being
-                  threatened, controlled or hurt, stop here. A mediator is the wrong tool and this
-                  one will say so rather than take a side.
-                </p>
-              </section>
+                );
+              })}
+              <button
+                type="button"
+                className="step"
+                aria-current={!locked && reviewing ? "step" : undefined}
+                disabled={locked}
+                onClick={() => goto(STEPS.length)}
+              >
+                <span className="n num">5</span>
+                <span className="name">Review and lock</span>
+                <span className="state">{locked ? "locked" : "not yet"}</span>
+              </button>
             </div>
+          </section>
+
+          <section className="panel">
+            <header>
+              <h2>When you both lock</h2>
+            </header>
+            <p className="hint">
+              The mediator reads both accounts once and both links show the same result.
+              Common ground and a resolution come back either way.
+              {view.case.mode === "COMMON_GROUND_AND_VERDICT"
+                ? " So does a ruling on who was right and who was wrong, and why."
+                : " Nobody is told they were wrong: this case is common ground only."}
+            </p>
+            <p className="safety" style={{ marginTop: 14 }}>
+              <b>Not for abuse or safety.</b> If what you are writing about involves being
+              threatened, controlled or hurt, stop here. A mediator is the wrong tool and this
+              one will say so rather than take a side.
+            </p>
           </section>
         </div>
 
         {locked ? (
-          <section className="panel">
-            <header>
-              <h2>
-              {view.case.status === "JUDGING"
-                ? "The mediator is deciding"
-                : view.other.locked
-                  ? "Both sides are in"
-                  : "Waiting for the other side"}
-            </h2>
-            </header>
+          <section className={`panel waiting-panel${justLocked ? " just-locked" : ""}`}>
+            {justLocked && <p className="lock-stamp" aria-hidden="true">Locked</p>}
             <div className="waiting">
-              <p className="lede">
-                {view.case.status === "JUDGING"
-                  ? "Both sides are in and the mediator is reading them now. It usually takes under a minute."
-                  : view.other.locked
-                    ? "The mediator is reading both accounts now. This page will show the result by itself."
-                    : `Your side is sealed. Nothing more to do until ${them(view)} locks theirs.`}
-              </p>
-              <p className="hint">
-                This page checks every five seconds. You can close it and come back to the same link.
-              </p>
+                <h2>
+                  {view.case.status === "JUDGING"
+                    ? "The mediator is deciding"
+                    : view.other.locked
+                      ? "Both sides are in"
+                      : `Waiting for ${them(view)}`}
+                </h2>
+                <p className="lede">
+                  {view.case.status === "JUDGING"
+                    ? "Both sides are in and the mediator is reading them now. It usually takes under a minute."
+                    : view.other.locked
+                      ? "The mediator is reading both accounts now. This page will show the result by itself."
+                      : `Your side is sealed. Nothing more to do until ${them(view)} locks theirs.`}
+                </p>
+                <p className="hint">
+                  This page checks every five seconds. You can close it and come back to the same link.
+                </p>
             </div>
+            <p className="pulse-bar" aria-hidden="true"><span /></p>
 
             <p className="hint" style={{ marginTop: 16 }}>
               Nothing is emailed and there is no case history. This link is the only way back to the
               result, for both of you, so keep it.
             </p>
 
-            <h3 className="sub-head" style={{ marginTop: 24 }}>What you locked</h3>
+            <h3 className="section-head">What you locked</h3>
             <div className="review">
-              {STEPS.map((s) => (
-                <div className="review-item" key={s.kind}>
+              {STEPS.map((s, i) => (
+                <div className="review-item" key={s.kind} style={{ "--i": i } as React.CSSProperties}>
                   <header>
-                    <h3>{s.name}</h3>
+                    <h4>{s.name}</h4>
                   </header>
                   {draft[s.kind].body.trim() ? (
                     <p>{draft[s.kind].body}</p>
@@ -404,23 +424,24 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
             </div>
           </section>
         ) : reviewing ? (
-          <section className="panel">
-            <header>
+          <section className={`panel step-panel dir-${dir}`} key="review">
+            <header className="step-head">
               <h2>Read it once more</h2>
               <span className="meta">Nothing here has been shown to anyone</span>
             </header>
-            <p className="hint" style={{ marginBottom: 4 }}>
+            <p className="question">
               {written} of {STEPS.length} steps written,{" "}
               <span className="num">
                 {STEPS.reduce((n, s) => n + draft[s.kind].body.trim().length, 0).toLocaleString()}
               </span>{" "}
               characters and{" "}
               <span className="num">{STEPS.reduce((n, s) => n + draft[s.kind].links.length, 0)}</span>{" "}
-              links. This is everything the mediator will see from you.
+              links.
             </p>
+            <p className="hint">This is everything the mediator will see from you.</p>
             <div className="review">
               {STEPS.map((s, i) => (
-                <div className="review-item" key={s.kind}>
+                <div className="review-item" key={s.kind} style={{ "--i": i } as React.CSSProperties}>
                   <header>
                     <h3>{s.name}</h3>
                     <button type="button" className="card-link" onClick={() => goto(i)}>
@@ -452,8 +473,8 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
                 <li>You still will not see {them(view)}&rsquo;s side until they lock too.</li>
                 <li>When you have both locked, the mediator runs once and you both get the same result.</li>
               </ul>
-              {error && <p role="alert" style={{ color: "#c4242a", marginBottom: 12 }}>{error}</p>}
-              <button className="btn primary" onClick={lock} disabled={locking || written === 0}>
+              {error && <p role="alert" className="err" style={{ marginBottom: 12 }}>{error}</p>}
+              <button className="btn primary btn-lock" onClick={lock} disabled={locking || written === 0}>
                 {locking ? "Locking…" : "Lock my side"}
               </button>
               {written === 0 && (
@@ -465,6 +486,8 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
           </section>
         ) : (
           <StepPanel
+            key={step}
+            dir={dir}
             step={step}
             value={draft[STEPS[step].kind]}
             saved={savedAt[STEPS[step].kind]}
@@ -480,9 +503,10 @@ export default function PartyForm({ token, initial }: { token: string; initial: 
 }
 
 function StepPanel({
-  step, value, saved, error, onChange, onBack, onNext,
+  step, dir, value, saved, error, onChange, onBack, onNext,
 }: {
   step: number;
+  dir: "fwd" | "back";
   value: Statement;
   saved: boolean | undefined;
   error: string | null;
@@ -492,16 +516,22 @@ function StepPanel({
 }) {
   const s = STEPS[step];
   const over = value.body.length > MAX_BODY;
+  const fill = Math.min(1, value.body.length / MAX_BODY);
 
   return (
-    <section className="panel">
-      <header>
+    <section className={`panel step-panel dir-${dir}`}>
+      <header className="step-head">
         <h2>{s.name}</h2>
-        <span className="meta">{saved === true ? "Saved" : saved === false ? "Saving…" : "Not saved yet"}</span>
+        <span
+          className={`save-chip ${saved === true ? "is-saved" : saved === false ? "is-saving" : ""}`}
+          role="status"
+        >
+          {saved === true ? "Saved" : saved === false ? "Saving…" : "Not saved yet"}
+        </span>
       </header>
 
       <div className="field">
-        <label htmlFor="body">{s.label}</label>
+        <label htmlFor="body" className="question">{s.label}</label>
         <p className="hint">{s.hint}</p>
         <textarea
           id="body"
@@ -512,6 +542,9 @@ function StepPanel({
           style={{ minHeight: s.rows }}
           aria-describedby="body-count"
         />
+        <div className="charge" aria-hidden="true">
+          <span style={{ transform: `scaleX(${fill})` }} className={over ? "over" : undefined} />
+        </div>
         <div className="field-foot">
           <span id="body-count" className={`num ${over ? "over" : ""}`}>
             {value.body.length.toLocaleString()} of {MAX_BODY.toLocaleString()} characters
@@ -525,7 +558,7 @@ function StepPanel({
 
       {s.kind === "EVIDENCE" && (
         <div className="field" style={{ marginTop: 20 }}>
-          <label htmlFor="link-0">Links</label>
+          <label htmlFor="link-0" className="question">Links</label>
           <p className="hint">Up to {MAX_LINKS}. A message, a receipt, a photo. Anything with an address.</p>
           <div className="links">
             {[...value.links, ""].slice(0, MAX_LINKS).map((l, i) => (
@@ -558,12 +591,12 @@ function StepPanel({
         </div>
       )}
 
-      <div className="uses">
+      <aside className="uses clawd-tip">
         <h3>What the mediator does with this</h3>
         <p>{s.uses}</p>
-      </div>
+      </aside>
 
-      {error && <p role="alert" style={{ marginTop: 16, color: "#c4242a" }}>{error}</p>}
+      {error && <p role="alert" className="err" style={{ marginTop: 16 }}>{error}</p>}
 
       <div className="actions">
         <button className="btn" onClick={onBack} disabled={step === 0}>Back</button>

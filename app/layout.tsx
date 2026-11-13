@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Public_Sans } from "next/font/google";
 import "./globals.css";
 import "./landing.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-// taste-skill-ignore: Geist Mono is the sheet's second face, used only for the share links (keys).
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin"], axes: ["opsz"] });
+const publicSans = Public_Sans({ variable: "--font-public-sans", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Love Lafda Solver",
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${publicSans.variable}`}>
       <body>{children}</body>
     </html>
   );
